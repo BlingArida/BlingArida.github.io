@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.1" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.1">
+
+<link rel="stylesheet" href="https://fonts.loli.net/css?family=Microsoft YaHei:300,300italic,400,400italic,700,700italic|Monaco:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.4.1',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="一、背景RNA-Seq实验设计中的“重复”包括：技术重复和生物学重复，重复是为了检测组间和组内的变异，对于假设检验至关重要。 技术重复为了估计测量技术（RNA-Seq）的变异。 生物学重复是为了发现生物组内的变异。简单的说，两组的基因表达的变化只有比组内变异还大时才能认为时显著的。 RNA-Seq试验中，抽样得到的raw read counts服从泊松分布。并且同一样本在两次试验中的结果不同，这称">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Differential expression analysis(差异表达分析)">
+<meta property="og:url" content="http://yoursite.com/2019/10/09/Differential expression analysis/index.html">
+<meta property="og:site_name" content="TwinkleShowTime">
+<meta property="og:description" content="一、背景RNA-Seq实验设计中的“重复”包括：技术重复和生物学重复，重复是为了检测组间和组内的变异，对于假设检验至关重要。 技术重复为了估计测量技术（RNA-Seq）的变异。 生物学重复是为了发现生物组内的变异。简单的说，两组的基因表达的变化只有比组内变异还大时才能认为时显著的。 RNA-Seq试验中，抽样得到的raw read counts服从泊松分布。并且同一样本在两次试验中的结果不同，这称">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/images/9697684-9d1139dd59928dff.webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2013053-3ba25c8c1e12cddb.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/318/format/webp">
+<meta property="og:image" content="http://yoursite.com/images/DiffExpAna-normalization-DESeq2.png">
+<meta property="og:updated_time" content="2019-10-09T11:56:41.431Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Differential expression analysis(差异表达分析)">
+<meta name="twitter:description" content="一、背景RNA-Seq实验设计中的“重复”包括：技术重复和生物学重复，重复是为了检测组间和组内的变异，对于假设检验至关重要。 技术重复为了估计测量技术（RNA-Seq）的变异。 生物学重复是为了发现生物组内的变异。简单的说，两组的基因表达的变化只有比组内变异还大时才能认为时显著的。 RNA-Seq试验中，抽样得到的raw read counts服从泊松分布。并且同一样本在两次试验中的结果不同，这称">
+<meta name="twitter:image" content="http://yoursite.com/images/9697684-9d1139dd59928dff.webp">
+  <link rel="canonical" href="http://yoursite.com/2019/10/09/Differential expression analysis/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Differential expression analysis(差异表达分析) | TwinkleShowTime</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">TwinkleShowTime</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="fa fa-search fa-fw"></i>搜索</a>
+      </li>
+    
+  </ul>
+
+    
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/09/Differential expression analysis/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Bling Arida">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TwinkleShowTime">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Differential expression analysis(差异表达分析)
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-10-09 19:56:41" itemprop="dateCreated datePublished" datetime="2019-10-09T19:56:41+08:00">2019-10-09</time>
+            </span>
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>8.7k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>8 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="一、背景"><a href="#一、背景" class="headerlink" title="一、背景"></a>一、背景</h2><p>RNA-Seq实验设计中的“重复”包括：技术重复和生物学重复，重复是为了检测组间和组内的变异，对于假设检验至关重要。</p><ul>
+<li>技术重复为了估计测量技术（RNA-Seq）的变异。</li>
+<li>生物学重复是为了发现生物组内的变异。简单的说，两组的基因表达的变化只有比组内变异还大时才能认为时显著的。</li>
+</ul><p>RNA-Seq试验中，抽样得到的raw read counts服从泊松分布。并且同一样本在两次试验中的结果不同，这称为shot noise。这种变异在RNA-Seq<strong>技术重复</strong>间成为Possion noise。生物学上不同的样本间的差异服从负二项(negative binomial)分布,有时称gamma-Poisson分布。由于RNA-Seq count数据也表现出zero inflation(大量值为0)的特征，所以很难拟合到负二项分布，所以有文章认为要用Poisson-Tweedie family建模。</p><a id="more"></a>
+
+
+<p>基本方法就是以<strong>生物学意义</strong>的方式计算基因表达量，然后通过统计学分析表达量寻找具有<strong>统计学显著性差异</strong>的基因，从而</p>
+<ul>
+<li>选择合适的基因</li>
+<li>衡量结果的可靠性</li>
+</ul>
+<h3 id="分析方法"><a href="#分析方法" class="headerlink" title="分析方法"></a>分析方法</h3><p>寻找差异表达基因有三种方式：</p>
+<blockquote>
+<p><strong>第一种</strong>是计算Fold change（倍数变化），十分简单粗暴的方法，计算方法如下：</p>
+</blockquote>
+<ul>
+<li>E = mean(group1) B=mean(group2)</li>
+<li>FC = (E-B) / min(E,B)</li>
+</ul>
+<p>说人话就是，基因A和基因B的平均值之差与两者中较小的比值。选择<strong>2-3</strong>倍的基因作为结果（为什么是2-3倍，就是大家约定俗成）。</p>
+<blockquote>
+<p><strong>第二种</strong>就是统计检验，写文章的时候总需要给出一个p值告诉主编这个结果可信的（虽然p值也存在争论）。</p>
+</blockquote>
+<p>复习一下：p值指的碰巧是拒绝零假设机会。P值越大假阳性越低，同时真实结果也可能会剔除。（<strong>注</strong>： 基因表达分析的零假设是： 基因在不同处理下的表达量相同。）</p>
+<p>对于基因表达而言，研究目标是，对于同一个基因而言，他们之间的差异是处理不同造成，还是因为系统误差造成。</p>
+<blockquote>
+<p><strong>第三种</strong>：Fold Change + 统计检验。</p>
+</blockquote>
+<p>在统计检验中你找到越多的差异表达基因，在p值矫正之后，你反而找不到差异表达基因。也就是说，如果在结果中存在大量滥竽充数的所谓的DE基因，那么在严格的p值矫正筛选后，反而会误删真实的DE基因。</p>
+<p>因此在p值矫正之前，你先要手动剔除一部分明显就是假阳性的DE基因。这个步骤就需要用到前面的fold-change分析。</p>
+<h3 id="理论基础：线性模型，-设计矩阵和比较矩阵"><a href="#理论基础：线性模型，-设计矩阵和比较矩阵" class="headerlink" title="理论基础：线性模型， 设计矩阵和比较矩阵"></a>理论基础：线性模型， 设计矩阵和比较矩阵</h3><p><strong>线性回归</strong> 一般是用于量化的预测变量来预测量化的响应变量。比如说体重与身高的关系建模。基因表达可以简单写成， <code>y =  a + b · *treament* + e</code></p>
+<p><strong>方差分析</strong>(Analysis of Variance, ANAOVA)名字听起来好像是检验方差，但其实是为了判断样本之间的差异是否真实存在，为此需要证明不同处理内的方差显著性大于不同处理间的方差。</p>
+<p>最简单的单因素方差分析，每一个结果都可以看成 <code>yij = ai + u + eij</code>， 其中u是总体均值，ai是每一个处理的差异，eij是随机误差。</p>
+<p>上述两个公式非常相似，因为线性模型和方差分析都是<strong>广义线性模型</strong>(generalizing linear models, GLM)在正态分布的预测变量的特殊形式。</p>
+<p>目前认为read count之间的差异是符合负二项分布，也叫gamma-Possion分布。那么问题来了，如何用GLM或者LM分析两个处理件的差异呢？其实可以简单的用上图的拟合直线的斜率来解释，如果不同处理之间存在差异，那么这个拟合线的斜率必定不为零，也就是与X轴平行。但是这是一种便于理解的方式（虽然你也未必能理解），实际更加复杂，考虑因素更多。</p>
+<p><strong>注1</strong> 负二向分布有两个参数，均值(mean)和离散值（dispersion). 离散值描述方差偏离均值的程度。泊松分布可以认为是负二向分布的离散值为1，也就是均值等于方差（mean=variance）的情况。<br><strong>注2</strong> 这部分涉及大量的统计学知识，不懂就用维基百科一个个查清楚。</p>
+<p>下面的设计矩阵（design matrix）就很好理解了， 其实就是用来告诉==不同的差异分析函数应该如何对待变量==。比如说我们要研究的==KD和control之间变化==，设计矩阵就是</p>
+<table>
+<thead>
+<tr>
+<th>样本</th>
+<th>处理</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>sample1</td>
+<td>control</td>
+</tr>
+<tr>
+<td>sample2</td>
+<td>control</td>
+</tr>
+<tr>
+<td>sample3</td>
+<td>KD</td>
+</tr>
+<tr>
+<td>sample4</td>
+<td>KD</td>
+</tr>
+</tbody></table>
+<p>那么比较矩阵（contrast matrix)就是告诉==差异分析函数应该如何对哪个因素进行比较， 这里就是比较不同处理下表达量的变化==。</p>
+<h2 id="二、RNA-seq的标准化"><a href="#二、RNA-seq的标准化" class="headerlink" title="二、RNA-seq的标准化"></a>二、RNA-seq的标准化</h2><p><img src="/images/9697684-9d1139dd59928dff.webp" alt="img"></p>
+<p>From RNA-seq reads to differential expression, Oshlack et al. Genome Biology 2010</p>
+<h4 id="基因表达标准化Normalisation"><a href="#基因表达标准化Normalisation" class="headerlink" title="基因表达标准化Normalisation"></a>基因表达标准化Normalisation</h4><p>我们在比较不同样品不同基因的差异表达情况时，期望表达水平分布符合统计方法的基本假设，但由于测序深度和基因长度的不同，直接使用原始count分析会导致假阳性和假阴性过高，因此对原始数据进行标准化/均一化是十分必要的。</p>
+<p>根据样本间和样本内重复可以把现有的诸多标准化方法大致分为两类，一类WSN(within-sample normalization)：RPKM和quartile四分位数法；另一类BSN(between-sample normalization)：TMM和upper quartile上四分位处理。</p>
+<p>为了方便理解，假设目前你在一次测序中(即剔除批次效应)检测了一个物种的3个样本，A,B,C，这个物种有三个基因G1,G2,G3, 基因长度分别为100, 500, 1000. 通过前期数据预处理，你得到了尚未标准化的表达量矩阵，如下所示。</p>
+<h3 id="比较容易想到的标准化方法"><a href="#比较容易想到的标准化方法" class="headerlink" title="比较容易想到的标准化方法"></a>比较容易想到的标准化方法</h3><p>基因表达量矩阵</p>
+<table>
+<thead>
+<tr>
+<th>基因/样本</th>
+<th>样本A</th>
+<th>样本B</th>
+<th>样本C</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>G1(100)</td>
+<td>300</td>
+<td>400</td>
+<td>500</td>
+</tr>
+<tr>
+<td>G2(500)</td>
+<td>700</td>
+<td>750</td>
+<td>800</td>
+</tr>
+<tr>
+<td>G3(1000)</td>
+<td>1000</td>
+<td>1300</td>
+<td>1800</td>
+</tr>
+</tbody></table>
+<p>先说三个简单的策略，也就是最容易想到的方法</p>
+<ul>
+<li>Total Count, TC, 每个基因计数除以总比对数, 即文库大小, 然后乘以不同样本的总比对数的均值</li>
+<li>Upper Quartile, UQ, 和TC方法相似, 即用上四分位数替代总比对数</li>
+<li>Median, Med, 和TC方法相似, 用中位数代替总比对数</li>
+</ul>
+<p>上面方法都相似，考虑到我的例子只有三个基因，所以只展示TC方法的结果. 可以发现，原本比其他组观测值低的A-G2，目前反而是最高（表格第二行）。</p>
+<table>
+<thead>
+<tr>
+<th>TC处理后</th>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>G1</td>
+<td>370</td>
+<td>402.7</td>
+<td>418.1</td>
+</tr>
+<tr>
+<td>G2</td>
+<td>863.3</td>
+<td>744.1</td>
+<td>543.5</td>
+</tr>
+<tr>
+<td>G3</td>
+<td>1233.3</td>
+<td>1308.8</td>
+<td>1505.1</td>
+</tr>
+</tbody></table>
+<h4 id="CPM-counts-per-million"><a href="#CPM-counts-per-million" class="headerlink" title="CPM (counts per million)"></a>CPM (counts per million)</h4><p>如果省去TC中的 “乘以不同样本的总比对数的均值” 这一步，那么差不多就是CPM (counts per million)的策略，也就是根据直接根据深度对每个样本单独进行标准化. 在edgeR和<a href="https://genomebiology.biomedcentral.com/articles/10.1186/gb-2014-15-2-r29" target="_blank" rel="noopener">limma/voom</a>里面都有出现过。</p>
+<p><img src="https:////upload-images.jianshu.io/upload_images/2013053-3ba25c8c1e12cddb.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/318/format/webp" alt="img"></p>
+<p>不同样品的测序量会有差异，最简单的标准化方式是计算<code>counts per million (CPM)</code>，即原始<code>reads count</code>除以总reads数乘以1,000,000。</p>
+<p>这种计算方式的缺点是容易受到极高表达且在不同样品中存在差异表达的基因的影响；这些基因的打开或关闭会影响到细胞中总的分子数目，可能导致这些基因标准化之后就不存在表达差异了，而原本没有差异的基因标准化之后却有差异了。RPKM、FPKM和TPM是CPM按照基因或转录本长度归一化后的表达，也会受到这一影响。</p>
+<h3 id="其它的标准化方法"><a href="#其它的标准化方法" class="headerlink" title="其它的标准化方法"></a>其它的标准化方法</h3><p>为了解决这一问题，研究者提出了其它的标准化方法。</p>
+<p><strong>量化因子 (size factor, SF)</strong>是由<code>DESeq</code>提出的。其方法是首先计算每个基因在所有样品中表达的几何平均值。每个细胞的量化因子(size factor)是所有基因与其在所有样品中的表达值的几何平均值的比值的中位数。由于几何平均值的使用，只有在所有样品中表达都不为0的基因才能用来计算。这一方法又被称为 <strong>RLE (relative log expression)</strong>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">calc_sf &lt;- function (expr_mat, spikes=NULL)&#123;</span><br><span class="line">  geomeans &lt;- exp(rowMeans(log(expr_mat[-spikes,])))</span><br><span class="line">  SF &lt;- function(cnts)&#123;</span><br><span class="line">    median((cnts/geomeans)[(is.finite(geomeans) &amp; geomeans &gt;0)])</span><br><span class="line">  &#125;</span><br><span class="line">  norm_factor &lt;- apply(expr_mat[-spikes,],2,SF)</span><br><span class="line">  return(t(t(expr_mat)/norm_factor))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>上四分位数 (upperquartile, UQ)</strong>是样品中所有基因的表达除以处于上四分位数的基因的表达值。同时为了保证表达水平的相对稳定，计算得到的上四分位数值要除以所有样品中上四分位数值的中位数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">calc_uq &lt;- function (expr_mat, spikes=NULL)&#123;</span><br><span class="line">  UQ &lt;- function(x) &#123;</span><br><span class="line">    quantile(x[x&gt;0],0.75)</span><br><span class="line">  &#125;</span><br><span class="line">  uq &lt;- unlist(apply(expr_mat[-spikes,],2,UQ))</span><br><span class="line">  norm_factor &lt;- uq/median(uq)</span><br><span class="line">  return(t(t(expr_mat)/norm_factor))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>TMM</strong>是M-值的加权截尾均值。选定一个样品为参照，其它样品中基因的表达相对于参照样品中对应基因表达倍数的log2值定义为M-值。随后去除M-值中最高和最低的30%，剩下的M值计算加权平均值。每一个非参照样品的基因表达值都乘以计算出的TMM。这个方法假设大部分基因的表达是没有差异的。</p>
+<h4 id="Median-of-Ratio-DESeq2"><a href="#Median-of-Ratio-DESeq2" class="headerlink" title="Median of Ratio (DESeq2)"></a>Median of Ratio (DESeq2)</h4><p>该方法基于的假设是，即使处在不同条件下的不同个样本，大多数基因的表达是不存在差异的，实际存在差异的基因只占很小的部分那么我们只需要将这些稳定的部分找出来，作为标准化的内参，依据内参算出各个样本的标准化因子</p>
+<p>（1）对每个基因计算几何平均数，得到一个假设的参考样本(pseudo-reference sample)</p>
+<table>
+<thead>
+<tr>
+<th align="left">gene</th>
+<th align="left">sampleA</th>
+<th align="left">sampleB</th>
+<th align="left">pseudo-reference sample</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">EF2A</td>
+<td align="left">1489</td>
+<td align="left">906</td>
+<td align="left">sqrt(1489 * 906) = 1161.5</td>
+</tr>
+<tr>
+<td align="left">ABCD1</td>
+<td align="left">22</td>
+<td align="left">13</td>
+<td align="left">sqrt(22 * 13) = 17.7</td>
+</tr>
+<tr>
+<td align="left">…</td>
+<td align="left">…</td>
+<td align="left">…</td>
+<td align="left">…</td>
+</tr>
+</tbody></table>
+<p>（2）对每个样本的每个基因对于参考样本计算Fold Change</p>
+<table>
+<thead>
+<tr>
+<th align="left">gene</th>
+<th align="left">sampleA</th>
+<th align="left">sampleB</th>
+<th align="left">pseudo-reference sample</th>
+<th align="left">ratio of sampleA/ref</th>
+<th align="left">ratio of sampleB/ref</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">EF2A</td>
+<td align="left">1489</td>
+<td align="left">906</td>
+<td align="left">1161.5</td>
+<td align="left">1489/1161.5 = 1.28</td>
+<td align="left">906/1161.5 = 0.78</td>
+</tr>
+<tr>
+<td align="left">ABCD1</td>
+<td align="left">22</td>
+<td align="left">13</td>
+<td align="left">16.9</td>
+<td align="left">22/16.9 = 1.30</td>
+<td align="left">13/16.9 = 0.77</td>
+</tr>
+<tr>
+<td align="left">MEFV</td>
+<td align="left">793</td>
+<td align="left">410</td>
+<td align="left">570.2</td>
+<td align="left">793/570.2 = 1.39</td>
+<td align="left">410/570.2 = 0.72</td>
+</tr>
+<tr>
+<td align="left">BAG1</td>
+<td align="left">76</td>
+<td align="left">42</td>
+<td align="left">56.5</td>
+<td align="left">76/56.5 = 1.35</td>
+<td align="left">42/56.5 = 0.74</td>
+</tr>
+<tr>
+<td align="left">MOV10</td>
+<td align="left">521</td>
+<td align="left">1196</td>
+<td align="left">883.7</td>
+<td align="left">521/883.7 = 0.590</td>
+<td align="left">1196/883.7 = 1.35</td>
+</tr>
+<tr>
+<td align="left">…</td>
+<td align="left">…</td>
+<td align="left">…</td>
+<td align="left">…</td>
+<td align="left">…</td>
+<td align="left">…</td>
+</tr>
+</tbody></table>
+<p><img src="/images/DiffExpAna-normalization-DESeq2.png" alt="img"></p>
+<p>（3）获取每个样本中Fold Change的中位数，我们就得到了非DE基因代表的Fold Change，该基因就是我们选择的该样本的内参基因，它的Fold Change就是该样本的标准化因子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">normalization_factor_sampleA &lt;- median(c(1.28, 1.3, 1.39, 1.35, 0.59))normalization_factor_sampleB &lt;- median(c(0.78, 0.77, 0.72, 0.74, 1.35))</span><br></pre></td></tr></table></figure>
+
+<h4 id="TMM-Trimmed-Mean-of-M-value-edgeR"><a href="#TMM-Trimmed-Mean-of-M-value-edgeR" class="headerlink" title="TMM (Trimmed Mean of M value, edgeR)"></a>TMM (Trimmed Mean of M value, edgeR)</h4><p>该方法的思想与DESeq2的Median of Ratio相同，假设前提都是：大多数基因的表达是不存在差异的</p>
+<p>它与DESeq2的不同之处在于对内参的选择上：</p>
+<blockquote>
+<ul>
+<li>DESeq2选择一个内参基因，它的Ratio/Fold-Change就是标准化因子</li>
+<li>edgeR选择一组内参基因集合，它们对标准化因子的计算均有贡献：加权平均</li>
+</ul>
+</blockquote>
+<p><strong>TMM（trimmed mean of M value)方法出现在2010年，比TC、 UQ、Med, CPM方法高级一点，基本假设是绝大数的基因不是差异表达基因.计算方法有点复杂，简单的说就是移除一定百分比的数据后，计算平均值作为缩放因子，对样本进行标准化。这次我们用R/edgeR来算. 和之前不同，A组的G2基因标准化后还是最低，这就是trim所引起。</strong></p>
+<p>代表性软件edgeR，具体原理参见<a href="https://ming-lian.github.io/2019/02/08/Stat-on-RNAseq/" target="_blank" rel="noopener">Footnotes[5]</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt; library(edgeR)</span><br><span class="line">&gt; expr &lt;- matrix(c(300,400,500,700,750,650,1000,1300,1800),nrow = 3,byrow = TRUE)</span><br><span class="line">&gt; f &lt;- calcNormFactors(expr, method = &quot;TMM&quot;)</span><br><span class="line">&gt; mt_norm &lt;- t(t(mt) /f )</span><br><span class="line">&gt; mt_norm</span><br><span class="line">          [,1]      [,2]      [,3]</span><br><span class="line">[1,]  303.0164  402.5300  491.9114</span><br><span class="line">[2,]  707.0382  754.7438  787.0583</span><br><span class="line">[3,] 1010.0545 1308.2226 1770.8811</span><br></pre></td></tr></table></figure>
+
+<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>*<em>DESeq2/DESeq有自己专门的计算缩放因子(scaling factor)的策略，它的基本假设就是绝大部分的基因表达在处理前后不会有显著性差异，表达量应该相似，据此计算每个基因在所有样本中的几何平均值(geometri mean), 每个样本的各个基因和对应的几何平均数的比值(fold change)的中位数就是缩放因子(scaling factor). *</em></p>
+<ul>
+<li>内参基因，House-keeping gene(s)。某一基因在样本中的表达肯定是一样的。(有限制，依赖基因的功能注释，数目少准确不高。)</li>
+<li>通用方法：<strong>假设大多数基因是没有差异表达的</strong>。统计学方法找到标准化的因子。</li>
+<li>DESeq2(estimateSizeFactors/sizeFactors)、edgeR（TMM,calcNormFactors）。差异表达分析鉴定软件。</li>
+<li>输入文件是reads count矩阵。</li>
+</ul>
+<p><strong>上述方法都是对样本整体进行标准化，标准化的结果只能比较不同样本之间的同一个基因的表达水平。</strong></p>
+<p>如果要同时比较不同样本不同基因之间的表达量差异，就得考虑到每个基因的转录本长度未必相同，毕竟转录本越长，打算成片段后被观察到的概率会高一点。此处不做展开。</p>
+<p>对于差异表达分析而言，标准化不但要考虑测序深度的问题，还要考虑到<strong>某些表达量超高或者极显著差异表达的基因导致count的分布出现偏倚</strong>, 推荐用TMM, DESeq方法进行标准化。</p>
+<h2 id="三、DESeq2-分析差异表达"><a href="#三、DESeq2-分析差异表达" class="headerlink" title="三、DESeq2 分析差异表达"></a>三、DESeq2 分析差异表达</h2><h3 id="1-DESeq2差异分析基本流程"><a href="#1-DESeq2差异分析基本流程" class="headerlink" title="1. DESeq2差异分析基本流程"></a>1. DESeq2差异分析基本流程</h3><ul>
+<li><p>对于DESeq2需要输入的三个数据：<strong>表达矩阵、样品信息矩阵、差异比较矩阵</strong> </p>
+</li>
+<li><p>而对于DESeq2的差异分析步骤，总结起来就是三步： </p>
+<ul>
+<li><font color="darkred"><strong>构建一个dds(DESeqDataSet)的对象</strong></font>；</li>
+</ul>
+</li>
+<li><p><font color="darkred"><strong>利用DESeq函数进行标准化处理</strong></font>；</p>
+<ul>
+<li><font color="darkred"><strong>用result函数来提取差异比较的结果</strong></font>。</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-构建dds矩阵"><a href="#2-构建dds矩阵" class="headerlink" title="2. 构建dds矩阵"></a>2. 构建dds矩阵</h3><ul>
+<li>构建dds矩阵的基本代码</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dds &lt;- DESeqDataSetFromMatrix(countData = cts, colData = coldata, design= ~ batch + condition)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>其输入的三个文件：<ul>
+<li><strong>表达矩阵</strong>：countData，就是通过之前的HTSeq-count生成的reads-count计算融合的矩阵。行为基因名，列为样品名，值为reads或fragment的整数。</li>
+<li><strong>样品信息矩阵</strong>：colData，它的类型是一个dataframe（数据框），第一列是样品名称，第二列是样品的处理情况（对照还是处理等）。可以从表达矩阵中导出或是自己单独建立。</li>
+<li><strong>差异比较矩阵</strong>：design，差异比较矩阵就是告诉差异分析函数哪些是对照，哪些是处理。</li>
+</ul>
+</li>
+</ul>
+<h4 id="r代码"><a href="#r代码" class="headerlink" title="r代码"></a>r代码</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">raw_count &lt;- read.csv(<span class="string">'D:/1A/RNAseq/analysis/clone_dist.csv'</span>)</span><br><span class="line">head(raw_count)</span><br><span class="line">count_data &lt;- raw_count[,<span class="number">2</span>:<span class="number">4</span>]</span><br><span class="line">head(count_data)</span><br><span class="line">row.names(count_data) &lt;- raw_count[,<span class="number">1</span>]</span><br><span class="line">condition &lt;- factor(c(<span class="string">"rep"</span>,<span class="string">"condition"</span>,<span class="string">"condition"</span>))</span><br><span class="line">col_data &lt;- data.frame(row.names = colnames(count_data), condition)</span><br><span class="line"><span class="keyword">library</span>(<span class="string">'DESeq2'</span>)</span><br><span class="line">dds &lt;- DESeqDataSetFromMatrix(countData = count_data,colData = col_data,design = ~ condition)</span><br><span class="line">nrow(dds)</span><br><span class="line">dds_filter &lt;- dds[ rowSums(counts(dds))&gt;<span class="number">1</span>, ]</span><br><span class="line">dds_out &lt;- DESeq(dds_filter)</span><br><span class="line">res &lt;- results(dds_out)</span><br><span class="line">summary(res)</span><br><span class="line">table(res$padj&lt;<span class="number">0.05</span>)</span><br><span class="line">res_deseq &lt;- res[order(res$padj),]</span><br><span class="line"><span class="comment">#一般选取Foldchange值和经过FDR矫正过后的p值，取padj值(p值经过多重校验校正后的值)小于0.05，log2FoldChange大于1的基因作为差异基因集</span></span><br><span class="line">diff_gene_deseq2 &lt;- subset(res_deseq, padj&lt;<span class="number">0.05</span> &amp; (log2FoldChange &gt; <span class="number">1</span> | log2FoldChange &lt; -<span class="number">1</span>))</span><br><span class="line">res_diff_data &lt;- merge(as.data.frame(res),as.data.frame(counts(dds_out,normalize=<span class="literal">TRUE</span>)),by=<span class="string">"row.names"</span>,sort=<span class="literal">FALSE</span>)</span><br><span class="line">write.csv(res_diff_data,file = <span class="string">"alpaca_data_new.csv"</span>,row.names = <span class="literal">F</span>)</span><br><span class="line">rld &lt;- rlog(dds, blind = <span class="literal">FALSE</span>)</span><br><span class="line">plotPCA(rld,intgroup=c(<span class="string">"condition"</span>))</span><br><span class="line"><span class="keyword">library</span>(<span class="string">"genefilter"</span>)</span><br><span class="line"><span class="keyword">library</span>(<span class="string">"pheatmap"</span>)</span><br><span class="line">topVarGene &lt;- head(order(rowVars(assay(rld)),decreasing = <span class="literal">TRUE</span>),<span class="number">50</span>)</span><br><span class="line">mat  &lt;- assay(rld)[ topVarGene, ]</span><br><span class="line">pheatmap(mat, annotation_col=col_data)</span><br><span class="line">pheatmap(mat,cluster_row=<span class="literal">T</span>,scale=<span class="string">"row"</span>, annotation_col=col_data) res0.5 &lt;- results(dds, contrast = c(<span class="string">"condition"</span>,<span class="string">"Basal"</span>,<span class="string">"LP"</span>),alpha=<span class="number">0.05</span>)</span><br><span class="line"><span class="comment">#另一种绘图方式</span></span><br><span class="line">mat  &lt;- mat - rowMeans(mat)</span><br><span class="line">pheatmap(mat, annotation_col=col_data)</span><br></pre></td></tr></table></figure>
+
+<h1 id="Footnotes"><a href="#Footnotes" class="headerlink" title="Footnotes"></a>Footnotes</h1><ol>
+<li><a href="https://www.plob.org/article/11574.html" target="_blank" rel="noopener">https://www.plob.org/article/11574.html</a></li>
+<li><a href="https://mp.weixin.qq.com/s?__biz=MzI1MjU5MjMzNA==&amp;mid=2247484514&amp;idx=1&amp;sn=1c6d227c6d7ac432d8baffb93b0b9072&amp;chksm=e9e02dc3de97a4d59d918ee37655153fa4ccc8122e3259c0201ff441c922548f22f84311ad91&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">https://mp.weixin.qq.com/s?__biz=MzI1MjU5MjMzNA==&amp;mid=2247484514&amp;idx=1&amp;sn=1c6d227c6d7ac432d8baffb93b0b9072&amp;chksm=e9e02dc3de97a4d59d918ee37655153fa4ccc8122e3259c0201ff441c922548f22f84311ad91&amp;scene=21#wechat_redirect</a></li>
+<li><a href="https://www.jianshu.com/p/2a52845cfa5d" target="_blank" rel="noopener">RNA-seq的标准化方法罗列</a></li>
+<li><a href="https://www.jianshu.com/p/a9d5065f82a6" target="_blank" rel="noopener">当我们在说RNA-seq reads count标准化时，其实在说什么？</a></li>
+<li><a href="https://ming-lian.github.io/2019/02/08/Stat-on-RNAseq/" target="_blank" rel="noopener">RNA-seq中的那些统计学问题</a></li>
+<li><a href="....\RNAseq\DESeq2\DESeq2差异基因分析和批次效应移除-生信宝典.html">DESeq2差异基因分析和批次效应移除-生信宝典.html</a> </li>
+</ol>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/10/09/搭建个人博客/" rel="next" title="github homepage + Hexo搭建个人博客">
+                  <i class="fa fa-chevron-left"></i> github homepage + Hexo搭建个人博客
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、背景"><span class="nav-number">1.</span> <span class="nav-text">一、背景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分析方法"><span class="nav-number">1.1.</span> <span class="nav-text">分析方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#理论基础：线性模型，-设计矩阵和比较矩阵"><span class="nav-number">1.2.</span> <span class="nav-text">理论基础：线性模型， 设计矩阵和比较矩阵</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、RNA-seq的标准化"><span class="nav-number">2.</span> <span class="nav-text">二、RNA-seq的标准化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基因表达标准化Normalisation"><span class="nav-number">2.0.1.</span> <span class="nav-text">基因表达标准化Normalisation</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#比较容易想到的标准化方法"><span class="nav-number">2.1.</span> <span class="nav-text">比较容易想到的标准化方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CPM-counts-per-million"><span class="nav-number">2.1.1.</span> <span class="nav-text">CPM (counts per million)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其它的标准化方法"><span class="nav-number">2.2.</span> <span class="nav-text">其它的标准化方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Median-of-Ratio-DESeq2"><span class="nav-number">2.2.1.</span> <span class="nav-text">Median of Ratio (DESeq2)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TMM-Trimmed-Mean-of-M-value-edgeR"><span class="nav-number">2.2.2.</span> <span class="nav-text">TMM (Trimmed Mean of M value, edgeR)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#小结"><span class="nav-number">2.2.3.</span> <span class="nav-text">小结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、DESeq2-分析差异表达"><span class="nav-number">3.</span> <span class="nav-text">三、DESeq2 分析差异表达</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-DESeq2差异分析基本流程"><span class="nav-number">3.1.</span> <span class="nav-text">1. DESeq2差异分析基本流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-构建dds矩阵"><span class="nav-number">3.2.</span> <span class="nav-text">2. 构建dds矩阵</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#r代码"><span class="nav-number">3.2.1.</span> <span class="nav-text">r代码</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Footnotes"><span class="nav-number"></span> <span class="nav-text">Footnotes</span></a></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Bling Arida</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      友链：手癌八卦求生小分队
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://silenwang.github.io" title="https://silenwang.github.io" rel="noopener" target="_blank">翻车老先生</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://github.com/EclipseZhao" title="https://github.com/EclipseZhao" rel="noopener" target="_blank">背锅女司机</a>
+        </li>
+      
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bling Arida</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">21k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    
+    <span title="站点阅读时长">20 分钟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.4.1</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
+<script src="/js/schemes/muse.js?v=7.4.1"></script>
+
+<script src="/js/next-boot.js?v=7.4.1"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.1"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
