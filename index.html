@@ -257,7 +257,7 @@
                 
               
 
-              <time title="创建时间：2019-10-09 19:56:41" itemprop="dateCreated datePublished" datetime="2019-10-09T19:56:41+08:00">2019-10-09</time>
+              <time title="创建时间：2019-10-09 20:00:23" itemprop="dateCreated datePublished" datetime="2019-10-09T20:00:23+08:00">2019-10-09</time>
             </span>
           
 
@@ -293,7 +293,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="一、背景"><a href="#一、背景" class="headerlink" title="一、背景"></a>一、背景</h2><p>RNA-Seq实验设计中的“重复”包括：技术重复和生物学重复，重复是为了检测组间和组内的变异，对于假设检验至关重要。</p><ul>
+          <h1 id="一、背景"><a href="#一、背景" class="headerlink" title="一、背景"></a>一、背景</h1><p>RNA-Seq实验设计中的“重复”包括：技术重复和生物学重复，重复是为了检测组间和组内的变异，对于假设检验至关重要。</p><ul>
 <li>技术重复为了估计测量技术（RNA-Seq）的变异。</li>
 <li>生物学重复是为了发现生物组内的变异。简单的说，两组的基因表达的变化只有比组内变异还大时才能认为时显著的。</li>
 </ul><p>RNA-Seq试验中，抽样得到的raw read counts服从泊松分布。并且同一样本在两次试验中的结果不同，这称为shot noise。这种变异在RNA-Seq<strong>技术重复</strong>间成为Possion noise。生物学上不同的样本间的差异服从负二项(negative binomial)分布,有时称gamma-Poisson分布。由于RNA-Seq count数据也表现出zero inflation(大量值为0)的特征，所以很难拟合到负二项分布，所以有文章认为要用Poisson-Tweedie family建模。</p>
