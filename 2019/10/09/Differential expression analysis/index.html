@@ -63,9 +63,9 @@
 <meta property="og:description" content="一、背景RNA-Seq实验设计中的“重复”包括：技术重复和生物学重复，重复是为了检测组间和组内的变异，对于假设检验至关重要。 技术重复为了估计测量技术（RNA-Seq）的变异。 生物学重复是为了发现生物组内的变异。简单的说，两组的基因表达的变化只有比组内变异还大时才能认为时显著的。 RNA-Seq试验中，抽样得到的raw read counts服从泊松分布。并且同一样本在两次试验中的结果不同，这称">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/images/9697684-9d1139dd59928dff.webp">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2013053-3ba25c8c1e12cddb.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/318/format/webp">
+<meta property="og:image" content="http://yoursite.com/images/1570622781905.png">
 <meta property="og:image" content="http://yoursite.com/images/DiffExpAna-normalization-DESeq2.png">
-<meta property="og:updated_time" content="2019-10-09T12:00:23.569Z">
+<meta property="og:updated_time" content="2019-10-09T12:06:33.610Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Differential expression analysis(差异表达分析)">
 <meta name="twitter:description" content="一、背景RNA-Seq实验设计中的“重复”包括：技术重复和生物学重复，重复是为了检测组间和组内的变异，对于假设检验至关重要。 技术重复为了估计测量技术（RNA-Seq）的变异。 生物学重复是为了发现生物组内的变异。简单的说，两组的基因表达的变化只有比组内变异还大时才能认为时显著的。 RNA-Seq试验中，抽样得到的raw read counts服从泊松分布。并且同一样本在两次试验中的结果不同，这称">
@@ -264,7 +264,7 @@
                 
               
 
-              <time title="创建时间：2019-10-09 20:00:23" itemprop="dateCreated datePublished" datetime="2019-10-09T20:00:23+08:00">2019-10-09</time>
+              <time title="创建时间：2019-10-09 20:06:33" itemprop="dateCreated datePublished" datetime="2019-10-09T20:06:33+08:00">2019-10-09</time>
             </span>
           
 
@@ -432,7 +432,7 @@
 </tr>
 </tbody></table>
 <h3 id="CPM-counts-per-million"><a href="#CPM-counts-per-million" class="headerlink" title="CPM (counts per million)"></a>CPM (counts per million)</h3><p>如果省去TC中的 “乘以不同样本的总比对数的均值” 这一步，那么差不多就是CPM (counts per million)的策略，也就是根据直接根据深度对每个样本单独进行标准化. 在edgeR和<a href="https://genomebiology.biomedcentral.com/articles/10.1186/gb-2014-15-2-r29" target="_blank" rel="noopener">limma/voom</a>里面都有出现过。</p>
-<p><img src="https:////upload-images.jianshu.io/upload_images/2013053-3ba25c8c1e12cddb.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/318/format/webp" alt="img"></p>
+<p><img src="/images/1570622781905.png" alt="1570622781905"></p>
 <p>不同样品的测序量会有差异，最简单的标准化方式是计算<code>counts per million (CPM)</code>，即原始<code>reads count</code>除以总reads数乘以1,000,000。</p>
 <p>这种计算方式的缺点是容易受到极高表达且在不同样品中存在差异表达的基因的影响；这些基因的打开或关闭会影响到细胞中总的分子数目，可能导致这些基因标准化之后就不存在表达差异了，而原本没有差异的基因标准化之后却有差异了。RPKM、FPKM和TPM是CPM按照基因或转录本长度归一化后的表达，也会受到这一影响。</p>
 <h3 id="其它的标准化方法"><a href="#其它的标准化方法" class="headerlink" title="其它的标准化方法"></a>其它的标准化方法</h3><p>为了解决这一问题，研究者提出了其它的标准化方法。</p>
