@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.1" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.1">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.4.1',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="git clone一直出错，最初以为是代理问题，但对git一通代理设置之后并没有什么用 报错如下 12345678$git clone https://github.com/***.gitfatal: unable to access &apos;https://github.com/***.git/&apos;: SSL connect error$ GIT_CURL_VERBOSE=1 git clone htt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="centOS6上实现git clone">
+<meta property="og:url" content="http://yoursite.com/2019/10/08/centos6上git clone/index.html">
+<meta property="og:site_name" content="Blingbling Showtime">
+<meta property="og:description" content="git clone一直出错，最初以为是代理问题，但对git一通代理设置之后并没有什么用 报错如下 12345678$git clone https://github.com/***.gitfatal: unable to access &apos;https://github.com/***.git/&apos;: SSL connect error$ GIT_CURL_VERBOSE=1 git clone htt">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-10-08T09:13:16.126Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="centOS6上实现git clone">
+<meta name="twitter:description" content="git clone一直出错，最初以为是代理问题，但对git一通代理设置之后并没有什么用 报错如下 12345678$git clone https://github.com/***.gitfatal: unable to access &apos;https://github.com/***.git/&apos;: SSL connect error$ GIT_CURL_VERBOSE=1 git clone htt">
+  <link rel="canonical" href="http://yoursite.com/2019/10/08/centos6上git clone/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>centOS6上实现git clone | Blingbling Showtime</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Blingbling Showtime</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+    
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/08/centos6上git clone/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Bling Arida">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blingbling Showtime">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">centOS6上实现git clone
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-10-08 17:13:16" itemprop="dateCreated datePublished" datetime="2019-10-08T17:13:16+08:00">2019-10-08</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>git clone一直出错，最初以为是代理问题，但对git一通代理设置之后并没有什么用</p>
+<p>报错如下</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$git</span> <span class="built_in">clone</span> https://github.com/***.git</span><br><span class="line">fatal: unable to access <span class="string">'https://github.com/***.git/'</span>: SSL connect error</span><br><span class="line">$ GIT_CURL_VERBOSE=1 git <span class="built_in">clone</span> https://github.com/***.git</span><br><span class="line">.....</span><br><span class="line">* NSS error -12190</span><br><span class="line">* Expire cleared</span><br><span class="line">* Closing connection <span class="comment">#0</span></span><br><span class="line">fatal: unable to access <span class="string">'https://github.com/***.git/'</span>: SSL connect error</span><br></pre></td></tr></table></figure>
+
+<p>查看系统版本，centos6.6</p>
+<p>网上教程是要更新~$ yum update -y nss curl，看起来一步搞定，但是我没有这个条件，服务器是通过内网上网的，所以只能手动安装，并且 更新curl的功能就好了</p>
+<blockquote>
+<p>1、安装repo</p>
+<p>rpm -Uvh  <a href="http://www.city-fan.org/ftp/contrib/yum-repo/rhel6/x86_64/city-fan.org-release-2-1.rhel6.noarch.rpm" target="_blank" rel="noopener">http://www.city-fan.org/ftp/contrib/yum-repo/rhel6/x86_64/city-fan.org-release-2-1.rhel6.noarch.rpm</a></p>
+<p>2、查看该 repo 包含的 curl 版本</p>
+<p>yum –showduplicates list curl –disablerepo=”*”  –enablerepo=”city*”</p>
+<p>3、修改该repo的enable为1</p>
+<p>vi /etc/yum.repos.d/city-fan.org.repo</p>
+<p>如下所示</p>
+<p>[city-fan.org]</p>
+<p>name=city-fan.org repository for Red Hat Enterprise Linux (and clones) $releasever ($basearch)</p>
+<p>#baseurl=<a href="http://mirror.city-fan.org/ftp/contrib/yum-repo/rhel$releasever/$basearch" target="_blank" rel="noopener">http://mirror.city-fan.org/ftp/contrib/yum-repo/rhel$releasever/$basearch</a></p>
+<p>mirrorlist=<a href="http://mirror.city-fan.org/ftp/contrib/yum-repo/mirrorlist-rhel$releasever" target="_blank" rel="noopener">http://mirror.city-fan.org/ftp/contrib/yum-repo/mirrorlist-rhel$releasever</a></p>
+<p>enabled=1</p>
+<p>gpgcheck=1</p>
+<p>gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-city-fan.org</p>
+<p>4、安装最新的curl</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; yum --showduplicates list curl --disablerepo=&quot;*&quot;  --enablerepo=&quot;city*&quot;</span><br><span class="line">&gt; yum install  &quot;curl-7.65.0-6.0.cf.rhel6.x86_64&quot; --disablerepo=&quot;*&quot;  --enablerepo=&quot;city*&quot;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p><del>yum install curl</del></p>
+<p>5、如果提示缺少依赖 libnghttp2.so.14()(64bit)</p>
+<p>rpm -ivh <a href="http://dl.fedoraproject.org/pub/epel/6/x86_64/Packages/l/libnghttp2-1.6.0-1.el6.1.x86_64.rpm" target="_blank" rel="noopener">http://dl.fedoraproject.org/pub/epel/6/x86_64/Packages/l/libnghttp2-1.6.0-1.el6.1.x86_64.rpm</a></p>
+<p><strong>下载不了就直接wget吧，然后再安装</strong></p>
+<p>然后重复第4步即可</p>
+<p>6、查看curl版本</p>
+<p>curl -V</p>
+<p>curl 7.60.0 (x86_64-conda_cos6-linux-gnu) libcurl/7.60.0 OpenSSL/1.0.2o zlib/1.2.11<br>Release-Date: 2018-05-16<br>Protocols: dict file ftp ftps gopher http https imap imaps pop3 pop3s rtsp smb smbs smtp smtps telnet tftp<br>Features: AsynchDNS IPv6 Largefile NTLM NTLM_WB SSL libz TLS-SRP UnixSockets HTTPS-proxy</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/10/08/Jupyter Notebook实现直接调用R/" rel="next" title="Jupyter Notebook实现直接调用R">
+                  <i class="fa fa-chevron-left"></i> Jupyter Notebook实现直接调用R
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/10/08/python 云服务器配置/" rel="prev" title="python云服务器配置">
+                  python云服务器配置 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Bling Arida</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bling Arida</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.4.1</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
+<script src="/js/schemes/muse.js?v=7.4.1"></script>
+<script src="/js/next-boot.js?v=7.4.1"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.1" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.1">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.4.1',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="VScode Remote今天抱着不想上班的心情迎来了高温假后的第一个工作日，吭哧吭哧本地装好了python2 发现没有我需要的包，我还只能在服务器上用那个只有linux和OS的软件。。。 折腾了一波 vscode的remote-ssh，妈蛋服务器端下载又不行 挂上了wget的代理12345$cat ~/.wgetrcuse_proxy=on#check-certificate=offhttp_p">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python云服务器配置">
+<meta property="og:url" content="http://yoursite.com/2019/10/08/python 云服务器配置/index.html">
+<meta property="og:site_name" content="Blingbling Showtime">
+<meta property="og:description" content="VScode Remote今天抱着不想上班的心情迎来了高温假后的第一个工作日，吭哧吭哧本地装好了python2 发现没有我需要的包，我还只能在服务器上用那个只有linux和OS的软件。。。 折腾了一波 vscode的remote-ssh，妈蛋服务器端下载又不行 挂上了wget的代理12345$cat ~/.wgetrcuse_proxy=on#check-certificate=offhttp_p">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2019/png/374495/1564645435989-d693bafb-12c8-4a77-94c0-faa8d7732187.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2019/png/374495/1564650083958-760aa431-8f3e-44f3-8499-2727c3d838a5.png">
+<meta property="og:updated_time" content="2019-10-08T09:19:42.921Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python云服务器配置">
+<meta name="twitter:description" content="VScode Remote今天抱着不想上班的心情迎来了高温假后的第一个工作日，吭哧吭哧本地装好了python2 发现没有我需要的包，我还只能在服务器上用那个只有linux和OS的软件。。。 折腾了一波 vscode的remote-ssh，妈蛋服务器端下载又不行 挂上了wget的代理12345$cat ~/.wgetrcuse_proxy=on#check-certificate=offhttp_p">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2019/png/374495/1564645435989-d693bafb-12c8-4a77-94c0-faa8d7732187.png">
+  <link rel="canonical" href="http://yoursite.com/2019/10/08/python 云服务器配置/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>python云服务器配置 | Blingbling Showtime</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Blingbling Showtime</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+    
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/08/python 云服务器配置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Bling Arida">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blingbling Showtime">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">python云服务器配置
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-10-08 17:19:42" itemprop="dateCreated datePublished" datetime="2019-10-08T17:19:42+08:00">2019-10-08</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="VScode-Remote"><a href="#VScode-Remote" class="headerlink" title="VScode Remote"></a>VScode Remote</h1><p>今天抱着不想上班的心情迎来了高温假后的第一个工作日，吭哧吭哧本地装好了python2 发现没有我需要的包，我还只能在服务器上用那个只有linux和OS的软件。。。</p>
+<p>折腾了一波 vscode的remote-ssh，妈蛋服务器端下载又不行</p>
+<h2 id="挂上了wget的代理"><a href="#挂上了wget的代理" class="headerlink" title="挂上了wget的代理"></a>挂上了wget的代理</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$cat ~/.wgetrc</span><br><span class="line">use_proxy=on</span><br><span class="line">#check-certificate=off</span><br><span class="line">http_proxy=http://127.0.0.1:9293</span><br><span class="line">https_proxy=http://127.0.0.1:9293</span><br></pre></td></tr></table></figure>
+
+<p>之后，是能下载了，但是centos6的基本库又有问题，我来更新它的权限不是很够，还有gcc的版本要调，由于工程太过浩大，鸽。。。</p>
+<p>emmm centos6安装了依赖包之后，蜜汁可以了，非常佛</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">wget http://copr-be.cloud.fedoraproject.org/results/mosquito/myrepo-el6/epel-6-x86_64/glibc-2.17-55.fc20/glibc-2.17-55.el6.x86_64.rpm</span><br><span class="line">wget http://copr-be.cloud.fedoraproject.org/results/mosquito/myrepo-el6/epel-6-x86_64/glibc-2.17-55.fc20/glibc-common-2.17-55.el6.x86_64.rpm</span><br><span class="line">wget http://copr-be.cloud.fedoraproject.org/results/mosquito/myrepo-el6/epel-6-x86_64/glibc-2.17-55.fc20/glibc-devel-2.17-55.el6.x86_64.rpm</span><br><span class="line">wget http://copr-be.cloud.fedoraproject.org/results/mosquito/myrepo-el6/epel-6-x86_64/glibc-2.17-55.fc20/glibc-headers-2.17-55.el6.x86_64.rpm</span><br><span class="line">wget https://copr-be.cloud.fedoraproject.org/results/mosquito/myrepo-el6/epel-6-x86_64/glibc-2.17-55.fc20/glibc-utils-2.17-55.el6.x86_64.rpm</span><br><span class="line">wget https://copr-be.cloud.fedoraproject.org/results/mosquito/myrepo-el6/epel-6-x86_64/glibc-2.17-55.fc20/glibc-static-2.17-55.el6.x86_64.rpm</span><br><span class="line"></span><br><span class="line">wget https://copr-be.cloud.fedoraproject.org/results/mosquito/myrepo-el6/epel-6-x86_64/gcc-4.8.2-16.3.fc20/libstdc++-4.8.2-16.3.el6.x86_64.rpm</span><br><span class="line">wget  https://copr-be.cloud.fedoraproject.org/results/mosquito/myrepo-el6/epel-6-x86_64/gcc-4.8.2-16.3.fc20/libstdc++-devel-4.8.2-16.3.el6.x86_64.rpm</span><br><span class="line">wget https://copr-be.cloud.fedoraproject.org/results/mosquito/myrepo-el6/epel-6-x86_64/gcc-4.8.2-16.3.fc20/libstdc++-static-4.8.2-16.3.el6.x86_64.rpm</span><br><span class="line"></span><br><span class="line">sudo rpm -Uh --force --nodeps     glibc-2.17-55.el6.x86_64.rpm     glibc-common-2.17-55.el6.x86_64.rpm     glibc-devel-2.17-55.el6.x86_64.rpm     glibc-headers-2.17-55.el6.x86_64.rpm     glibc-static-2.17-55.el6.x86_64.rpm     glibc-utils-2.17-55.el6.x86_64.rpm</span><br><span class="line">sudo rpm -Uh     libstdc++-4.8.2-16.3.el6.x86_64.rpm     libstdc++-devel-4.8.2-16.3.el6.x86_64.rpm     libstdc++-static-4.8.2-16.3.el6.x86_64.rpm</span><br></pre></td></tr></table></figure>
+
+<p>然后就可以体验vscode的远程界面了</p>
+<h2 id="在服务器上也安装好相关需要的插件"><a href="#在服务器上也安装好相关需要的插件" class="headerlink" title="在服务器上也安装好相关需要的插件"></a>在服务器上也安装好相关需要的插件</h2><p>vscode remote非常迷，达到了一个ssh终端的效果，我把图片拖上去也能使用，非常棒。。。</p>
+<h1 id="jupter-notebook-云服务器配置服务器"><a href="#jupter-notebook-云服务器配置服务器" class="headerlink" title="jupter notebook 云服务器配置服务器"></a>jupter notebook 云服务器配置服务器</h1><p>我决定再来折腾一波jupter notebook的云服务器配置，智障的我一开始配的是jupter python3，导致改成python2的jupyter再配置好启动就冒了一串这个玩意：</p>
+<p>`HTTP request sent; waiting for response.[I 14:21:23.131 NotebookApp] Accepting one-time-token-authenticated connection from ::1</p>
+<p>localhost cookie: _xsrf=2|6c33e61b|1db145affcf3b3a4ad8ed3d9c660e009|1564640483 Allow? (Y/N/Always/neVer)`狂按一波delete之后好了。。。emmm，就酱</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">$jupyter notebook --generate-config</span><br><span class="line"></span><br><span class="line">In [1]: from IPython.lib import passwd</span><br><span class="line"></span><br><span class="line">In [2]: passwd()</span><br><span class="line">Enter password: </span><br><span class="line">Verify password: </span><br><span class="line">Out[2]: &apos;sha1:9c54a45da8d5:7097820a8e516d2d2698061e2bc4f843d204936a&apos; </span><br><span class="line"></span><br><span class="line">$vim ~/.jupyter/jupyter_notebook_config.py </span><br><span class="line"></span><br><span class="line">c.NotebookApp.ip=&apos;*&apos; #所有绑定服务器的IP都能访问，若想只在特定ip访问，输入ip地址即可</span><br><span class="line">c.NotebookApp.notebook_dir = &apos;/NFS/cany/jupyter_projects&apos;</span><br><span class="line">c.NotebookApp.password = u&apos;sha1:9c54a45da8d5:7097820a8e516d2d2698061e2bc4f843d204936a&apos;</span><br><span class="line">c.NotebookApp.open_browser = False # 代表启动notebook服务时不打开浏览器并访问</span><br><span class="line">c.NotebookApp.port =8888 #随便指定一个端口</span><br><span class="line">c.IPKernelApp.pylab = &apos;inline&apos;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#在服务器端启动jupyter notebook</span><br><span class="line">jupyter notebook --no-browser</span><br><span class="line"></span><br><span class="line">#将远程服务器端口指定到本地</span><br><span class="line">ssh -T -L 8888:localhost:8888 TAD</span><br><span class="line"></span><br><span class="line">#在chrome中输入http://localhost:8888/tree</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/374495/1564645435989-d693bafb-12c8-4a77-94c0-faa8d7732187.png" alt="image.png"></p>
+<h2 id="jupyter-notebook-拓展"><a href="#jupyter-notebook-拓展" class="headerlink" title="jupyter notebook 拓展"></a>jupyter notebook 拓展</h2><p><a href="https://zhuanlan.zhihu.com/p/36389916" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/36389916</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pip2 install jupyter_nbextensions_configurator</span><br><span class="line">pip2 install jupyter_contrib_nbextensions </span><br><span class="line">jupyter contrib nbextension install --user</span><br><span class="line">jupyter nbextensions_configurator enable --user</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/374495/1564650083958-760aa431-8f3e-44f3-8499-2727c3d838a5.png" alt="image.png"></p>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/10/08/centos6上git clone/" rel="next" title="centOS6上实现git clone">
+                  <i class="fa fa-chevron-left"></i> centOS6上实现git clone
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#VScode-Remote"><span class="nav-number">1.</span> <span class="nav-text">VScode Remote</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#挂上了wget的代理"><span class="nav-number">1.1.</span> <span class="nav-text">挂上了wget的代理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在服务器上也安装好相关需要的插件"><span class="nav-number">1.2.</span> <span class="nav-text">在服务器上也安装好相关需要的插件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#jupter-notebook-云服务器配置服务器"><span class="nav-number">2.</span> <span class="nav-text">jupter notebook 云服务器配置服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#jupyter-notebook-拓展"><span class="nav-number">2.1.</span> <span class="nav-text">jupyter notebook 拓展</span></a></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Bling Arida</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bling Arida</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.4.1</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
+<script src="/js/schemes/muse.js?v=7.4.1"></script>
+<script src="/js/next-boot.js?v=7.4.1"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
