@@ -55,18 +55,18 @@
   };
 </script>
 
-  <meta name="description" content="建立ssh 服务 首先是卸载重装一遍ssh服务，自带ssh服务无法建立远程连接。 12sudo apt-get remove openssh-serversudo apt-get install openssh-server  编辑sshd_config文件，修改几处配置才能正常使用用户名/密码的方式连接 1sudo vi /etc/ssh/sshd_config        修改SSH Ser">
+  <meta name="description" content="建立ssh 服务 首先是卸载重装一遍ssh服务，自带ssh服务无法建立远程连接。 12sudo apt-get remove openssh-serversudo apt-get install openssh-server  编辑sshd_config文件，修改几处配置才能正常使用用户名/密码的方式连接 1sudo vi /etc/ssh/sshd_config">
 <meta property="og:type" content="article">
 <meta property="og:title" content="WSL配置">
 <meta property="og:url" content="http://yoursite.com/2019/10/09/WSL配置/index.html">
 <meta property="og:site_name" content="TwinkleShowTime">
-<meta property="og:description" content="建立ssh 服务 首先是卸载重装一遍ssh服务，自带ssh服务无法建立远程连接。 12sudo apt-get remove openssh-serversudo apt-get install openssh-server  编辑sshd_config文件，修改几处配置才能正常使用用户名/密码的方式连接 1sudo vi /etc/ssh/sshd_config        修改SSH Ser">
+<meta property="og:description" content="建立ssh 服务 首先是卸载重装一遍ssh服务，自带ssh服务无法建立远程连接。 12sudo apt-get remove openssh-serversudo apt-get install openssh-server  编辑sshd_config文件，修改几处配置才能正常使用用户名/密码的方式连接 1sudo vi /etc/ssh/sshd_config">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/2019/10/09/images/1568958014684.png">
 <meta property="og:updated_time" content="2019-10-09T03:16:18.868Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="WSL配置">
-<meta name="twitter:description" content="建立ssh 服务 首先是卸载重装一遍ssh服务，自带ssh服务无法建立远程连接。 12sudo apt-get remove openssh-serversudo apt-get install openssh-server  编辑sshd_config文件，修改几处配置才能正常使用用户名/密码的方式连接 1sudo vi /etc/ssh/sshd_config        修改SSH Ser">
+<meta name="twitter:description" content="建立ssh 服务 首先是卸载重装一遍ssh服务，自带ssh服务无法建立远程连接。 12sudo apt-get remove openssh-serversudo apt-get install openssh-server  编辑sshd_config文件，修改几处配置才能正常使用用户名/密码的方式连接 1sudo vi /etc/ssh/sshd_config">
 <meta name="twitter:image" content="http://yoursite.com/2019/10/09/images/1568958014684.png">
   <link rel="canonical" href="http://yoursite.com/2019/10/09/WSL配置/">
 
@@ -308,7 +308,7 @@
 
 
 </li>
-</ul>
+</ul><a id="more"></a>
 <p>  修改SSH Server的监听端口，这里修改为<code>23</code>。</p>
   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo sed -i &apos;/Port /c Port 23&apos; /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure>
 

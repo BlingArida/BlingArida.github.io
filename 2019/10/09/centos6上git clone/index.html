@@ -55,17 +55,17 @@
   };
 </script>
 
-  <meta name="description" content="git clone一直出错，最初以为是代理问题，但对git一通代理设置之后并没有什么用 报错如下 12345678$git clone https://github.com/***.gitfatal: unable to access &apos;https://github.com/***.git/&apos;: SSL connect error$ GIT_CURL_VERBOSE=1 git clone htt">
+  <meta name="description" content="git clone一直出错，最初以为是代理问题，但对git一通代理设置之后并没有什么用报错如下12345678$git clone https://github.com/***.gitfatal: unable to access &apos;https://github.com/***.git/&apos;: SSL connect error$ GIT_CURL_VERBOSE=1 git clone https">
 <meta property="og:type" content="article">
 <meta property="og:title" content="centOS6上实现git clone">
 <meta property="og:url" content="http://yoursite.com/2019/10/09/centos6上git clone/index.html">
 <meta property="og:site_name" content="TwinkleShowTime">
-<meta property="og:description" content="git clone一直出错，最初以为是代理问题，但对git一通代理设置之后并没有什么用 报错如下 12345678$git clone https://github.com/***.gitfatal: unable to access &apos;https://github.com/***.git/&apos;: SSL connect error$ GIT_CURL_VERBOSE=1 git clone htt">
+<meta property="og:description" content="git clone一直出错，最初以为是代理问题，但对git一通代理设置之后并没有什么用报错如下12345678$git clone https://github.com/***.gitfatal: unable to access &apos;https://github.com/***.git/&apos;: SSL connect error$ GIT_CURL_VERBOSE=1 git clone https">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-10-09T03:16:42.658Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="centOS6上实现git clone">
-<meta name="twitter:description" content="git clone一直出错，最初以为是代理问题，但对git一通代理设置之后并没有什么用 报错如下 12345678$git clone https://github.com/***.gitfatal: unable to access &apos;https://github.com/***.git/&apos;: SSL connect error$ GIT_CURL_VERBOSE=1 git clone htt">
+<meta name="twitter:description" content="git clone一直出错，最初以为是代理问题，但对git一通代理设置之后并没有什么用报错如下12345678$git clone https://github.com/***.gitfatal: unable to access &apos;https://github.com/***.git/&apos;: SSL connect error$ GIT_CURL_VERBOSE=1 git clone https">
   <link rel="canonical" href="http://yoursite.com/2019/10/09/centos6上git clone/">
 
 
@@ -296,9 +296,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>git clone一直出错，最初以为是代理问题，但对git一通代理设置之后并没有什么用</p>
-<p>报错如下</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$git</span> <span class="built_in">clone</span> https://github.com/***.git</span><br><span class="line">fatal: unable to access <span class="string">'https://github.com/***.git/'</span>: SSL connect error</span><br><span class="line">$ GIT_CURL_VERBOSE=1 git <span class="built_in">clone</span> https://github.com/***.git</span><br><span class="line">.....</span><br><span class="line">* NSS error -12190</span><br><span class="line">* Expire cleared</span><br><span class="line">* Closing connection <span class="comment">#0</span></span><br><span class="line">fatal: unable to access <span class="string">'https://github.com/***.git/'</span>: SSL connect error</span><br></pre></td></tr></table></figure>
+        <p>git clone一直出错，最初以为是代理问题，但对git一通代理设置之后并没有什么用</p><p>报错如下</p><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$git</span> <span class="built_in">clone</span> https://github.com/***.git</span><br><span class="line">fatal: unable to access <span class="string">'https://github.com/***.git/'</span>: SSL connect error</span><br><span class="line">$ GIT_CURL_VERBOSE=1 git <span class="built_in">clone</span> https://github.com/***.git</span><br><span class="line">.....</span><br><span class="line">* NSS error -12190</span><br><span class="line">* Expire cleared</span><br><span class="line">* Closing connection <span class="comment">#0</span></span><br><span class="line">fatal: unable to access <span class="string">'https://github.com/***.git/'</span>: SSL connect error</span><br></pre></td></tr></table></figure><a id="more"></a>
+
+
 
 <p>查看系统版本，centos6.6</p>
 <p>网上教程是要更新~$ yum update -y nss curl，看起来一步搞定，但是我没有这个条件，服务器是通过内网上网的，所以只能手动安装，并且 更新curl的功能就好了</p>
