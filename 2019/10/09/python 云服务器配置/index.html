@@ -17,7 +17,7 @@
 
 <link rel="stylesheet" href="/css/main.css?v=7.4.1">
 
-
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|Amita:300,300italic,400,400italic,700,700italic|Microsoft YaHei:300,300italic,400,400italic,700,700italic|Monaco:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
 <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
 
 
@@ -62,13 +62,13 @@
 <meta property="og:site_name" content="TwinkleShowTime">
 <meta property="og:description" content="VScode Remote今天抱着不想上班的心情迎来了高温假后的第一个工作日，吭哧吭哧本地装好了python2 发现没有我需要的包，我还只能在服务器上用那个只有linux和OS的软件。。。折腾了一波 vscode的remote-ssh，妈蛋服务器端下载又不行挂上了wget的代理12345$cat ~/.wgetrcuse_proxy=on#check-certificate=offhttp_pro">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2019/10/09/images/1564645435989-d693bafb-12c8-4a77-94c0-faa8d7732187-1570590951770.png">
-<meta property="og:image" content="http://yoursite.com/2019/10/09/images/1564650083958-760aa431-8f3e-44f3-8499-2727c3d838a5-1570590953757.png">
-<meta property="og:updated_time" content="2019-10-09T05:56:28.025Z">
+<meta property="og:image" content="http://yoursite.com/images/1570605051706.png">
+<meta property="og:image" content="http://yoursite.com/1570605066407.png">
+<meta property="og:updated_time" content="2019-10-09T07:14:01.842Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python云服务器配置">
 <meta name="twitter:description" content="VScode Remote今天抱着不想上班的心情迎来了高温假后的第一个工作日，吭哧吭哧本地装好了python2 发现没有我需要的包，我还只能在服务器上用那个只有linux和OS的软件。。。折腾了一波 vscode的remote-ssh，妈蛋服务器端下载又不行挂上了wget的代理12345$cat ~/.wgetrcuse_proxy=on#check-certificate=offhttp_pro">
-<meta name="twitter:image" content="http://yoursite.com/2019/10/09/images/1564645435989-d693bafb-12c8-4a77-94c0-faa8d7732187-1570590951770.png">
+<meta name="twitter:image" content="http://yoursite.com/images/1570605051706.png">
   <link rel="canonical" href="http://yoursite.com/2019/10/09/python 云服务器配置/">
 
 
@@ -263,7 +263,7 @@
                 
               
 
-              <time title="创建时间：2019-10-09 13:56:28" itemprop="dateCreated datePublished" datetime="2019-10-09T13:56:28+08:00">2019-10-09</time>
+              <time title="创建时间：2019-10-09 15:14:01" itemprop="dateCreated datePublished" datetime="2019-10-09T15:14:01+08:00">2019-10-09</time>
             </span>
           
 
@@ -314,11 +314,11 @@
 <p>localhost cookie: _xsrf=2|6c33e61b|1db145affcf3b3a4ad8ed3d9c660e009|1564640483 Allow? (Y/N/Always/neVer)`狂按一波delete之后好了。。。emmm，就酱</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">$jupyter notebook --generate-config</span><br><span class="line"></span><br><span class="line">In [1]: from IPython.lib import passwd</span><br><span class="line"></span><br><span class="line">In [2]: passwd()</span><br><span class="line">Enter password: </span><br><span class="line">Verify password: </span><br><span class="line">Out[2]: &apos;sha1:9c54a45da8d5:7097820a8e516d2d2698061e2bc4f843d204936a&apos; </span><br><span class="line"></span><br><span class="line">$vim ~/.jupyter/jupyter_notebook_config.py </span><br><span class="line"></span><br><span class="line">c.NotebookApp.ip=&apos;*&apos; #所有绑定服务器的IP都能访问，若想只在特定ip访问，输入ip地址即可</span><br><span class="line">c.NotebookApp.notebook_dir = &apos;/NFS/cany/jupyter_projects&apos;</span><br><span class="line">c.NotebookApp.password = u&apos;sha1:9c54a45da8d5:7097820a8e516d2d2698061e2bc4f843d204936a&apos;</span><br><span class="line">c.NotebookApp.open_browser = False # 代表启动notebook服务时不打开浏览器并访问</span><br><span class="line">c.NotebookApp.port =8888 #随便指定一个端口</span><br><span class="line">c.IPKernelApp.pylab = &apos;inline&apos;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#在服务器端启动jupyter notebook</span><br><span class="line">jupyter notebook --no-browser</span><br><span class="line"></span><br><span class="line">#将远程服务器端口指定到本地</span><br><span class="line">ssh -T -L 8888:localhost:8888 TAD</span><br><span class="line"></span><br><span class="line">#在chrome中输入http://localhost:8888/tree</span><br></pre></td></tr></table></figure>
 
-<p><img src="../images/1564645435989-d693bafb-12c8-4a77-94c0-faa8d7732187-1570590951770.png" alt="image.png"></p>
+<p><img src="/images/1570605051706.png" alt="1570605051706"></p>
 <h2 id="jupyter-notebook-拓展"><a href="#jupyter-notebook-拓展" class="headerlink" title="jupyter notebook 拓展"></a>jupyter notebook 拓展</h2><p><a href="https://zhuanlan.zhihu.com/p/36389916" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/36389916</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pip2 install jupyter_nbextensions_configurator</span><br><span class="line">pip2 install jupyter_contrib_nbextensions </span><br><span class="line">jupyter contrib nbextension install --user</span><br><span class="line">jupyter nbextensions_configurator enable --user</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pip3 install jupyter_nbextensions_configurator --user</span><br><span class="line">pip3 install jupyter_contrib_nbextensions --user</span><br><span class="line">jupyter contrib nbextension install --user</span><br><span class="line">jupyter nbextensions_configurator enable --user</span><br></pre></td></tr></table></figure>
 
-<p><img src="../images/1564650083958-760aa431-8f3e-44f3-8499-2727c3d838a5-1570590953757.png" alt="image.png"></p>
+<p><img src="/1570605066407.png" alt="1570605066407"></p>
 
     </div>
 
@@ -335,15 +335,15 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2019/10/09/搭建个人博客/" rel="next" title="github homepage + Hexo搭建个人博客">
-                  <i class="fa fa-chevron-left"></i> github homepage + Hexo搭建个人博客
-                </a>
-              
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/10/09/centos6上git clone/" rel="prev" title="centOS6上实现git clone">
+                  centOS6上实现git clone <i class="fa fa-chevron-right"></i>
+                </a>
               
             </div>
           </div>
@@ -454,14 +454,14 @@
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">11k</span>
+    <span title="站点总字数">12k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">10 分钟</span>
+    <span title="站点阅读时长">11 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
   <span class="post-meta-divider">|</span>

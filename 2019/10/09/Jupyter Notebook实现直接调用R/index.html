@@ -17,7 +17,7 @@
 
 <link rel="stylesheet" href="/css/main.css?v=7.4.1">
 
-
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|Amita:300,300italic,400,400italic,700,700italic|Microsoft YaHei:300,300italic,400,400italic,700,700italic|Monaco:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
 <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
 
 
@@ -58,15 +58,15 @@
   <meta name="description" content="关联jupyter notebook如果你没有安装jupyter notebook，需要先安装。我推荐直接使用anaconda，上面自带jupyter notebook而且环境配置都帮你搞定了，自带python。相当于最后R和python都可以用首先我们打开R的命令行，如果不知道可以直接打开Rsudio，在坐下角的console里写如下命令：">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Jupyter Notebook实现直接调用R">
-<meta property="og:url" content="http://yoursite.com/2019/10/08/Jupyter Notebook实现直接调用R/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/10/09/Jupyter Notebook实现直接调用R/index.html">
 <meta property="og:site_name" content="TwinkleShowTime">
 <meta property="og:description" content="关联jupyter notebook如果你没有安装jupyter notebook，需要先安装。我推荐直接使用anaconda，上面自带jupyter notebook而且环境配置都帮你搞定了，自带python。相当于最后R和python都可以用首先我们打开R的命令行，如果不知道可以直接打开Rsudio，在坐下角的console里写如下命令：">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-08T09:10:38.580Z">
+<meta property="og:updated_time" content="2019-10-09T07:39:46.855Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Jupyter Notebook实现直接调用R">
 <meta name="twitter:description" content="关联jupyter notebook如果你没有安装jupyter notebook，需要先安装。我推荐直接使用anaconda，上面自带jupyter notebook而且环境配置都帮你搞定了，自带python。相当于最后R和python都可以用首先我们打开R的命令行，如果不知道可以直接打开Rsudio，在坐下角的console里写如下命令：">
-  <link rel="canonical" href="http://yoursite.com/2019/10/08/Jupyter Notebook实现直接调用R/">
+  <link rel="canonical" href="http://yoursite.com/2019/10/09/Jupyter Notebook实现直接调用R/">
 
 
 <script id="page-configurations">
@@ -232,7 +232,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/08/Jupyter Notebook实现直接调用R/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/09/Jupyter Notebook实现直接调用R/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Bling Arida">
@@ -260,7 +260,7 @@
                 
               
 
-              <time title="创建时间：2019-10-08 17:10:38" itemprop="dateCreated datePublished" datetime="2019-10-08T17:10:38+08:00">2019-10-08</time>
+              <time title="创建时间：2019-10-09 15:39:46" itemprop="dateCreated datePublished" datetime="2019-10-09T15:39:46+08:00">2019-10-09</time>
             </span>
           
 
@@ -302,7 +302,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">install.packages(c('repr', 'IRdisplay', 'evaluate', 'crayon', 'pbdZMQ', 'devtools', 'uuid', 'digest'))</span><br><span class="line">devtools::install_github('IRkernel/IRkernel')</span><br></pre></td></tr></table></figure>
 
 <p>上面的代码会自动分两步执行，执行完后，在输入如下代码中的一个：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 只在当前用户下安装</span></span><br><span class="line">IRkernel::installspec()</span><br><span class="line"><span class="meta">#</span><span class="bash"> 或者是在系统下安装</span></span><br><span class="line">IRkernel::installspec(user = FALSE)</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 只在当前用户下安装</span><br><span class="line">IRkernel::installspec()</span><br><span class="line"><span class="meta">#</span> 或者是在系统下安装</span><br><span class="line">IRkernel::installspec(user = FALSE)</span><br></pre></td></tr></table></figure>
 
 <p>等待执行完毕，打开jupyter就可以新建R的notebook了。</p>
 <h2 id="安装rpy2"><a href="#安装rpy2" class="headerlink" title="安装rpy2"></a>安装rpy2</h2><p>接着</p>
@@ -311,7 +311,7 @@
 <p>就可以了。</p>
 <p>开始快活</p>
 <p>新建python的notebook，会发现调用R及其简单。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">先新建个Dataframe对象</span></span><br><span class="line">a = pd.DataFrame([[1,2],[2,1]])</span><br><span class="line">传到R里:</span><br><span class="line"><span class="meta">%</span><span class="bash">%R -i a</span></span><br><span class="line">plot(a)</span><br><span class="line">从R里传值出来(1000个按正态分布的随机数）：</span><br><span class="line"><span class="meta">%</span><span class="bash">%R -o q</span></span><br><span class="line">q &lt;- rnorm(1000)</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>先新建个Dataframe对象</span><br><span class="line">a = pd.DataFrame([[1,2],[2,1]])</span><br><span class="line">传到R里:</span><br><span class="line"><span class="meta">%</span>%R -i a</span><br><span class="line">plot(a)</span><br><span class="line">从R里传值出来(1000个按正态分布的随机数）：</span><br><span class="line"><span class="meta">%</span>%R -o q</span><br><span class="line">q &lt;- rnorm(1000)</span><br></pre></td></tr></table></figure>
 
 <p>Here is the way I fixed my <strong>R</strong> package version <strong>3.0.2</strong> python version <strong>2.7</strong> platform ipython notebook.</p>
 <p>Change Path for R computer-&gt; property -&gt; advanced and system setting -&gt; environment variables</p>
@@ -337,15 +337,15 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
+                <a href="/2019/10/09/搭建个人博客/" rel="next" title="github homepage + Hexo搭建个人博客">
+                  <i class="fa fa-chevron-left"></i> github homepage + Hexo搭建个人博客
+                </a>
+              
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-              
-                <a href="/2019/10/09/WSL配置/" rel="prev" title="WSL配置">
-                  WSL配置 <i class="fa fa-chevron-right"></i>
-                </a>
               
             </div>
           </div>
@@ -456,14 +456,14 @@
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">11k</span>
+    <span title="站点总字数">12k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">10 分钟</span>
+    <span title="站点阅读时长">11 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
   <span class="post-meta-divider">|</span>
