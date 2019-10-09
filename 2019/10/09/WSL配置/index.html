@@ -55,18 +55,20 @@
   };
 </script>
 
-  <meta name="description" content="git clone一直出错，最初以为是代理问题，但对git一通代理设置之后并没有什么用 报错如下 12345678$git clone https://github.com/***.gitfatal: unable to access &apos;https://github.com/***.git/&apos;: SSL connect error$ GIT_CURL_VERBOSE=1 git clone htt">
+  <meta name="description" content="建立ssh 服务 首先是卸载重装一遍ssh服务，自带ssh服务无法建立远程连接。 12sudo apt-get remove openssh-serversudo apt-get install openssh-server  编辑sshd_config文件，修改几处配置才能正常使用用户名/密码的方式连接 1sudo vi /etc/ssh/sshd_config        修改SSH Ser">
 <meta property="og:type" content="article">
-<meta property="og:title" content="centOS6上实现git clone">
-<meta property="og:url" content="http://yoursite.com/2019/10/08/centos6上git clone/index.html">
+<meta property="og:title" content="WSL配置">
+<meta property="og:url" content="http://yoursite.com/2019/10/09/WSL配置/index.html">
 <meta property="og:site_name" content="TwinkleShowTime">
-<meta property="og:description" content="git clone一直出错，最初以为是代理问题，但对git一通代理设置之后并没有什么用 报错如下 12345678$git clone https://github.com/***.gitfatal: unable to access &apos;https://github.com/***.git/&apos;: SSL connect error$ GIT_CURL_VERBOSE=1 git clone htt">
+<meta property="og:description" content="建立ssh 服务 首先是卸载重装一遍ssh服务，自带ssh服务无法建立远程连接。 12sudo apt-get remove openssh-serversudo apt-get install openssh-server  编辑sshd_config文件，修改几处配置才能正常使用用户名/密码的方式连接 1sudo vi /etc/ssh/sshd_config        修改SSH Ser">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-08T09:13:16.126Z">
+<meta property="og:image" content="http://yoursite.com/2019/10/09/images/1568958014684.png">
+<meta property="og:updated_time" content="2019-10-09T03:16:18.868Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="centOS6上实现git clone">
-<meta name="twitter:description" content="git clone一直出错，最初以为是代理问题，但对git一通代理设置之后并没有什么用 报错如下 12345678$git clone https://github.com/***.gitfatal: unable to access &apos;https://github.com/***.git/&apos;: SSL connect error$ GIT_CURL_VERBOSE=1 git clone htt">
-  <link rel="canonical" href="http://yoursite.com/2019/10/08/centos6上git clone/">
+<meta name="twitter:title" content="WSL配置">
+<meta name="twitter:description" content="建立ssh 服务 首先是卸载重装一遍ssh服务，自带ssh服务无法建立远程连接。 12sudo apt-get remove openssh-serversudo apt-get install openssh-server  编辑sshd_config文件，修改几处配置才能正常使用用户名/密码的方式连接 1sudo vi /etc/ssh/sshd_config        修改SSH Ser">
+<meta name="twitter:image" content="http://yoursite.com/2019/10/09/images/1568958014684.png">
+  <link rel="canonical" href="http://yoursite.com/2019/10/09/WSL配置/">
 
 
 <script id="page-configurations">
@@ -80,7 +82,7 @@
   };
 </script>
 
-  <title>centOS6上实现git clone | TwinkleShowTime</title>
+  <title>WSL配置 | TwinkleShowTime</title>
   
 
 
@@ -232,7 +234,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/08/centos6上git clone/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/09/WSL配置/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Bling Arida">
@@ -244,7 +246,7 @@
       <meta itemprop="name" content="TwinkleShowTime">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">centOS6上实现git clone
+        <h1 class="post-title" itemprop="name headline">WSL配置
 
           
         </h1>
@@ -260,7 +262,7 @@
                 
               
 
-              <time title="创建时间：2019-10-08 17:13:16" itemprop="dateCreated datePublished" datetime="2019-10-08T17:13:16+08:00">2019-10-08</time>
+              <time title="创建时间：2019-10-09 11:16:18" itemprop="dateCreated datePublished" datetime="2019-10-09T11:16:18+08:00">2019-10-09</time>
             </span>
           
 
@@ -273,7 +275,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>1.8k</span>
+              <span>2.1k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -296,40 +298,38 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>git clone一直出错，最初以为是代理问题，但对git一通代理设置之后并没有什么用</p>
-<p>报错如下</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$git</span> <span class="built_in">clone</span> https://github.com/***.git</span><br><span class="line">fatal: unable to access <span class="string">'https://github.com/***.git/'</span>: SSL connect error</span><br><span class="line">$ GIT_CURL_VERBOSE=1 git <span class="built_in">clone</span> https://github.com/***.git</span><br><span class="line">.....</span><br><span class="line">* NSS error -12190</span><br><span class="line">* Expire cleared</span><br><span class="line">* Closing connection <span class="comment">#0</span></span><br><span class="line">fatal: unable to access <span class="string">'https://github.com/***.git/'</span>: SSL connect error</span><br></pre></td></tr></table></figure>
+        <h2 id="建立ssh-服务"><a href="#建立ssh-服务" class="headerlink" title="建立ssh 服务"></a>建立ssh 服务</h2><ul>
+<li><p>首先是卸载重装一遍ssh服务，自带ssh服务无法建立远程连接。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="keyword">get</span> <span class="keyword">remove</span> openssh-server</span><br><span class="line">sudo apt-<span class="keyword">get</span> install openssh-server</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编辑sshd_config文件，修改几处配置才能正常使用用户名/密码的方式连接</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vi /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure>
 
-<p>查看系统版本，centos6.6</p>
-<p>网上教程是要更新~$ yum update -y nss curl，看起来一步搞定，但是我没有这个条件，服务器是通过内网上网的，所以只能手动安装，并且 更新curl的功能就好了</p>
-<blockquote>
-<p>1、安装repo</p>
-<p>rpm -Uvh  <a href="http://www.city-fan.org/ftp/contrib/yum-repo/rhel6/x86_64/city-fan.org-release-2-1.rhel6.noarch.rpm" target="_blank" rel="noopener">http://www.city-fan.org/ftp/contrib/yum-repo/rhel6/x86_64/city-fan.org-release-2-1.rhel6.noarch.rpm</a></p>
-<p>2、查看该 repo 包含的 curl 版本</p>
-<p>yum –showduplicates list curl –disablerepo=”*”  –enablerepo=”city*”</p>
-<p>3、修改该repo的enable为1</p>
-<p>vi /etc/yum.repos.d/city-fan.org.repo</p>
-<p>如下所示</p>
-<p>[city-fan.org]</p>
-<p>name=city-fan.org repository for Red Hat Enterprise Linux (and clones) $releasever ($basearch)</p>
-<p>#baseurl=<a href="http://mirror.city-fan.org/ftp/contrib/yum-repo/rhel$releasever/$basearch" target="_blank" rel="noopener">http://mirror.city-fan.org/ftp/contrib/yum-repo/rhel$releasever/$basearch</a></p>
-<p>mirrorlist=<a href="http://mirror.city-fan.org/ftp/contrib/yum-repo/mirrorlist-rhel$releasever" target="_blank" rel="noopener">http://mirror.city-fan.org/ftp/contrib/yum-repo/mirrorlist-rhel$releasever</a></p>
-<p>enabled=1</p>
-<p>gpgcheck=1</p>
-<p>gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-city-fan.org</p>
-<p>4、安装最新的curl</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; yum --showduplicates list curl --disablerepo=&quot;*&quot;  --enablerepo=&quot;city*&quot;</span><br><span class="line">&gt; yum install  &quot;curl-7.65.0-6.0.cf.rhel6.x86_64&quot; --disablerepo=&quot;*&quot;  --enablerepo=&quot;city*&quot;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<blockquote>
-<p><del>yum install curl</del></p>
-<p>5、如果提示缺少依赖 libnghttp2.so.14()(64bit)</p>
-<p>rpm -ivh <a href="http://dl.fedoraproject.org/pub/epel/6/x86_64/Packages/l/libnghttp2-1.6.0-1.el6.1.x86_64.rpm" target="_blank" rel="noopener">http://dl.fedoraproject.org/pub/epel/6/x86_64/Packages/l/libnghttp2-1.6.0-1.el6.1.x86_64.rpm</a></p>
-<p><strong>下载不了就直接wget吧，然后再安装</strong></p>
-<p>然后重复第4步即可</p>
-<p>6、查看curl版本</p>
-<p>curl -V</p>
-<p>curl 7.60.0 (x86_64-conda_cos6-linux-gnu) libcurl/7.60.0 OpenSSL/1.0.2o zlib/1.2.11<br>Release-Date: 2018-05-16<br>Protocols: dict file ftp ftps gopher http https imap imaps pop3 pop3s rtsp smb smbs smtp smtps telnet tftp<br>Features: AsynchDNS IPv6 Largefile NTLM NTLM_WB SSL libz TLS-SRP UnixSockets HTTPS-proxy</p>
-</blockquote>
+
+
+</li>
+</ul>
+<p>  修改SSH Server的监听端口，这里修改为<code>23</code>。</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo sed -i &apos;/Port /c Port 23&apos; /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure>
+
+
+
+<p>  修改SSH Server的监听地址。</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo sed -i &apos;/ListenAddress 0.0.0.0/c ListenAddress 0.0.0.0&apos; /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure>
+
+<p>  <code>PasswordAuthentication yes # 允许用户名密码方式登录</code></p>
+<ul>
+<li><p>修改完之后重启ssh服务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service ssh restart</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="修改用户名"><a href="#修改用户名" class="headerlink" title="修改用户名"></a>修改用户名</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">先创建root密码：sudo -s 进入root</span><br><span class="line">passwd root后输入要创建的root密码</span><br><span class="line"></span><br><span class="line">[cany@0152LO2061907W Fri Sep 20 10:38:03]/mnt/d/1A/Synthetic_library_design/GermlineGrouping20190919</span><br><span class="line">$su</span><br><span class="line">Password:</span><br><span class="line">#简单的说就是把cany全都替换成yincan</span><br><span class="line">root@0152LO2061907W:/mnt/d/1A/Synthetic_library_design/GermlineGrouping20190919# vi /etc/passwd</span><br><span class="line">root@0152LO2061907W:/mnt/d/1A/Synthetic_library_design/GermlineGrouping20190919# vi /etc/shadow</span><br><span class="line">root@0152LO2061907W:/mnt/d/1A/Synthetic_library_design/GermlineGrouping20190919# vi  /etc/group</span><br><span class="line">root@0152LO2061907W:/mnt/d/1A/Synthetic_library_design/GermlineGrouping20190919# mv /home/cany/ /home/yincan</span><br><span class="line">root@0152LO2061907W:/mnt/d/1A/Synthetic_library_design/GermlineGrouping20190919# su -l yincan</span><br></pre></td></tr></table></figure>
+
+<h2 id="在WSL上使用python"><a href="#在WSL上使用python" class="headerlink" title="在WSL上使用python"></a>在WSL上使用python</h2><p><a href="http://www.erogol.com/using-windows-wsl-for-deep-learning-development/" target="_blank" rel="noopener">http://www.erogol.com/using-windows-wsl-for-deep-learning-development/</a></p>
+<p><img src="../images/1568958014684.png" alt="1568958014684"></p>
+<h3 id="bashrc配置"><a href="#bashrc配置" class="headerlink" title="bashrc配置"></a>bashrc配置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">alias l=&quot;ll -hrt&quot;</span><br><span class="line">alias L=&quot;l -L&quot;</span><br><span class="line">alias les=&quot;less -S&quot;</span><br><span class="line">alias mkdir=&quot;mkdir -m 755 &quot;</span><br><span class="line">alias tarxzf=&quot;tar -xzvf&quot;</span><br><span class="line">alias tarxjf=&quot;tar -xjvf&quot;</span><br><span class="line">alias tarxf=&quot;tar -xvf&quot;</span><br><span class="line">alias tarcf=&quot;tar -cf&quot;</span><br><span class="line">alias tarczf=&quot;tar -czf&quot;</span><br><span class="line">alias tarcjf=&quot;tar -cjf&quot;</span><br><span class="line">alias rm=&quot;rm -i&quot;</span><br><span class="line">alias grep=&apos;grep --color=auto&apos;</span><br><span class="line">LANG=en_US.utf8</span><br><span class="line">SYSFONT=&quot;latarcyrheb-sun16&quot;</span><br><span class="line">SUPPORTED=&quot;zh_CN.UTF-8:zh_CN:zh&quot;</span><br><span class="line">export LANG</span><br><span class="line">PS1=&quot;\[\e[1;33m\]\u@\t \[\e[1;36m\]\w\[\e[1;35m\]\nBASH---&gt;\[\e[0;37m\] &quot;     #server</span><br><span class="line">alias ipython=&apos;ipython.exe&apos;</span><br><span class="line">alias python=&apos;python.exe -i&apos;</span><br><span class="line">alias pip=&apos;pip.exe&apos;</span><br><span class="line"></span><br><span class="line"># another PS1,my WSL</span><br><span class="line">PS1=&quot;\[\e[1;36m\]\w\[\e[1;35m\] ---&gt; \[\e[0;37m\]&quot;</span><br></pre></td></tr></table></figure>
+
 
     </div>
 
@@ -346,8 +346,8 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2019/10/08/Jupyter Notebook实现直接调用R/" rel="next" title="Jupyter Notebook实现直接调用R">
-                  <i class="fa fa-chevron-left"></i> Jupyter Notebook实现直接调用R
+                <a href="/2019/10/09/python 云服务器配置/" rel="next" title="python云服务器配置">
+                  <i class="fa fa-chevron-left"></i> python云服务器配置
                 </a>
               
             </div>
@@ -356,8 +356,8 @@
 
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/2019/10/08/python 云服务器配置/" rel="prev" title="python云服务器配置">
-                  python云服务器配置 <i class="fa fa-chevron-right"></i>
+                <a href="/2019/10/09/搭建个人博客/" rel="prev" title="github homepage + Hexo搭建个人博客">
+                  github homepage + Hexo搭建个人博客 <i class="fa fa-chevron-right"></i>
                 </a>
               
             </div>
@@ -404,6 +404,8 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#建立ssh-服务"><span class="nav-number">1.</span> <span class="nav-text">建立ssh 服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改用户名"><span class="nav-number">2.</span> <span class="nav-text">修改用户名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在WSL上使用python"><span class="nav-number">3.</span> <span class="nav-text">在WSL上使用python</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#bashrc配置"><span class="nav-number">3.1.</span> <span class="nav-text">bashrc配置</span></a></li></ol></li></ol></div>
+        
       </div>
       <!--/noindex-->
 
@@ -418,7 +420,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">5</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -427,6 +429,22 @@
 </div>
 
 
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      友链：手癌八卦求生小分队
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://silenwang.github.io" title="https://silenwang.github.io" rel="noopener" target="_blank">翻车老先生</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://github.com/EclipseZhao" title="https://github.com/EclipseZhao" rel="noopener" target="_blank">背锅女司机</a>
+        </li>
+      
+    </ul>
+  </div>
 
       </div>
 
@@ -451,14 +469,14 @@
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">7k</span>
+    <span title="站点总字数">11k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">6 分钟</span>
+    <span title="站点阅读时长">10 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
   <span class="post-meta-divider">|</span>

@@ -55,14 +55,18 @@
   };
 </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="TwinkleShowTime">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+  <meta name="description" content="git clone一直出错，最初以为是代理问题，但对git一通代理设置之后并没有什么用 报错如下 12345678$git clone https://github.com/***.gitfatal: unable to access &apos;https://github.com/***.git/&apos;: SSL connect error$ GIT_CURL_VERBOSE=1 git clone htt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="centOS6上实现git clone">
+<meta property="og:url" content="http://yoursite.com/2019/10/09/centos6上git clone/index.html">
 <meta property="og:site_name" content="TwinkleShowTime">
+<meta property="og:description" content="git clone一直出错，最初以为是代理问题，但对git一通代理设置之后并没有什么用 报错如下 12345678$git clone https://github.com/***.gitfatal: unable to access &apos;https://github.com/***.git/&apos;: SSL connect error$ GIT_CURL_VERBOSE=1 git clone htt">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-10-09T03:16:42.658Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="TwinkleShowTime">
-  <link rel="canonical" href="http://yoursite.com/archives/">
+<meta name="twitter:title" content="centOS6上实现git clone">
+<meta name="twitter:description" content="git clone一直出错，最初以为是代理问题，但对git一通代理设置之后并没有什么用 报错如下 12345678$git clone https://github.com/***.gitfatal: unable to access &apos;https://github.com/***.git/&apos;: SSL connect error$ GIT_CURL_VERBOSE=1 git clone htt">
+  <link rel="canonical" href="http://yoursite.com/2019/10/09/centos6上git clone/">
 
 
 <script id="page-configurations">
@@ -70,13 +74,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false,
+    isPost: true,
     isPage: false,
-    isArchive: true
+    isArchive: false
   };
 </script>
 
-  <title>归档 | TwinkleShowTime</title>
+  <title>centOS6上实现git clone | TwinkleShowTime</title>
   
 
 
@@ -185,18 +189,6 @@
 
     
 
-  
-    
-    
-  
-    
-    
-  
-    
-    
-  
-  
-
 </nav>
   <div class="site-search">
     <div class="popup search-popup">
@@ -235,182 +227,146 @@
           <div id="content" class="content">
             
 
+  <div class="posts-expand">
+      
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        
-        
-        
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/09/centos6上git clone/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Bling Arida">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TwinkleShowTime">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">centOS6上实现git clone
+
           
-        
-        <span class="collection-header">嗯..! 目前共计 5 篇日志。 继续努力。</span>
-      </div>
-      
+        </h1>
 
-      
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
 
-  
-  
+              
+                
+              
 
-  
+              <time title="创建时间：2019-10-09 11:16:42" itemprop="dateCreated datePublished" datetime="2019-10-09T11:16:42+08:00">2019-10-09</time>
+            </span>
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>1.8k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>2 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
     
-    <div class="collection-year">
-      <h1 class="collection-header">2019</h1>
-    </div>
-  
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+      
+        <p>git clone一直出错，最初以为是代理问题，但对git一通代理设置之后并没有什么用</p>
+<p>报错如下</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$git</span> <span class="built_in">clone</span> https://github.com/***.git</span><br><span class="line">fatal: unable to access <span class="string">'https://github.com/***.git/'</span>: SSL connect error</span><br><span class="line">$ GIT_CURL_VERBOSE=1 git <span class="built_in">clone</span> https://github.com/***.git</span><br><span class="line">.....</span><br><span class="line">* NSS error -12190</span><br><span class="line">* Expire cleared</span><br><span class="line">* Closing connection <span class="comment">#0</span></span><br><span class="line">fatal: unable to access <span class="string">'https://github.com/***.git/'</span>: SSL connect error</span><br></pre></td></tr></table></figure>
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-10-09T11:16:42+08:00"
-              content="2019-10-09">
-          10-09
-        </time>
-      </div>
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/10/09/centos6上git clone/" itemprop="url">
-            <span itemprop="name">centOS6上实现git clone</span>
-          </a>
-        
-      </h2>
-
-    </header>
-  </article>
-
-
-
-  
-  
-
-  
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-10-09T11:16:27+08:00"
-              content="2019-10-09">
-          10-09
-        </time>
-      </div>
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/10/09/搭建个人博客/" itemprop="url">
-            <span itemprop="name">github homepage + Hexo搭建个人博客</span>
-          </a>
-        
-      </h2>
-
-    </header>
-  </article>
-
-
-
-  
-  
-
-  
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-10-09T11:16:18+08:00"
-              content="2019-10-09">
-          10-09
-        </time>
-      </div>
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/10/09/WSL配置/" itemprop="url">
-            <span itemprop="name">WSL配置</span>
-          </a>
-        
-      </h2>
-
-    </header>
-  </article>
-
-
-
-  
-  
-
-  
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-10-09T11:15:58+08:00"
-              content="2019-10-09">
-          10-09
-        </time>
-      </div>
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/10/09/python 云服务器配置/" itemprop="url">
-            <span itemprop="name">python云服务器配置</span>
-          </a>
-        
-      </h2>
-
-    </header>
-  </article>
-
-
-
-  
-  
-
-  
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-10-08T17:10:38+08:00"
-              content="2019-10-08">
-          10-08
-        </time>
-      </div>
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/10/08/Jupyter Notebook实现直接调用R/" itemprop="url">
-            <span itemprop="name">Jupyter Notebook实现直接调用R</span>
-          </a>
-        
-      </h2>
-
-    </header>
-  </article>
-
-
-
+<p>查看系统版本，centos6.6</p>
+<p>网上教程是要更新~$ yum update -y nss curl，看起来一步搞定，但是我没有这个条件，服务器是通过内网上网的，所以只能手动安装，并且 更新curl的功能就好了</p>
+<blockquote>
+<p>1、安装repo</p>
+<p>rpm -Uvh  <a href="http://www.city-fan.org/ftp/contrib/yum-repo/rhel6/x86_64/city-fan.org-release-2-1.rhel6.noarch.rpm" target="_blank" rel="noopener">http://www.city-fan.org/ftp/contrib/yum-repo/rhel6/x86_64/city-fan.org-release-2-1.rhel6.noarch.rpm</a></p>
+<p>2、查看该 repo 包含的 curl 版本</p>
+<p>yum –showduplicates list curl –disablerepo=”*”  –enablerepo=”city*”</p>
+<p>3、修改该repo的enable为1</p>
+<p>vi /etc/yum.repos.d/city-fan.org.repo</p>
+<p>如下所示</p>
+<p>[city-fan.org]</p>
+<p>name=city-fan.org repository for Red Hat Enterprise Linux (and clones) $releasever ($basearch)</p>
+<p>#baseurl=<a href="http://mirror.city-fan.org/ftp/contrib/yum-repo/rhel$releasever/$basearch" target="_blank" rel="noopener">http://mirror.city-fan.org/ftp/contrib/yum-repo/rhel$releasever/$basearch</a></p>
+<p>mirrorlist=<a href="http://mirror.city-fan.org/ftp/contrib/yum-repo/mirrorlist-rhel$releasever" target="_blank" rel="noopener">http://mirror.city-fan.org/ftp/contrib/yum-repo/mirrorlist-rhel$releasever</a></p>
+<p>enabled=1</p>
+<p>gpgcheck=1</p>
+<p>gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-city-fan.org</p>
+<p>4、安装最新的curl</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; yum --showduplicates list curl --disablerepo=&quot;*&quot;  --enablerepo=&quot;city*&quot;</span><br><span class="line">&gt; yum install  &quot;curl-7.65.0-6.0.cf.rhel6.x86_64&quot; --disablerepo=&quot;*&quot;  --enablerepo=&quot;city*&quot;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p><del>yum install curl</del></p>
+<p>5、如果提示缺少依赖 libnghttp2.so.14()(64bit)</p>
+<p>rpm -ivh <a href="http://dl.fedoraproject.org/pub/epel/6/x86_64/Packages/l/libnghttp2-1.6.0-1.el6.1.x86_64.rpm" target="_blank" rel="noopener">http://dl.fedoraproject.org/pub/epel/6/x86_64/Packages/l/libnghttp2-1.6.0-1.el6.1.x86_64.rpm</a></p>
+<p><strong>下载不了就直接wget吧，然后再安装</strong></p>
+<p>然后重复第4步即可</p>
+<p>6、查看curl版本</p>
+<p>curl -V</p>
+<p>curl 7.60.0 (x86_64-conda_cos6-linux-gnu) libcurl/7.60.0 OpenSSL/1.0.2o zlib/1.2.11<br>Release-Date: 2018-05-16<br>Protocols: dict file ftp ftps gopher http https imap imaps pop3 pop3s rtsp smb smbs smtp smtps telnet tftp<br>Features: AsynchDNS IPv6 Largefile NTLM NTLM_WB SSL libz TLS-SRP UnixSockets HTTPS-proxy</p>
+</blockquote>
 
     </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/10/09/搭建个人博客/" rel="next" title="github homepage + Hexo搭建个人博客">
+                  <i class="fa fa-chevron-left"></i> github homepage + Hexo搭建个人博客
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
   </div>
-  
-  
-  
-
-  
-
 
 
           </div>
@@ -427,6 +383,11 @@
 
   <aside class="sidebar">
     <div class="sidebar-inner">
+        
+        
+        
+        
+      
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
