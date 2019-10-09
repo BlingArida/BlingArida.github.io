@@ -64,7 +64,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/images/1570605051706.png">
 <meta property="og:image" content="http://yoursite.com/1570605066407.png">
-<meta property="og:updated_time" content="2019-10-09T07:14:01.842Z">
+<meta property="og:updated_time" content="2019-10-09T08:21:29.009Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python云服务器配置">
 <meta name="twitter:description" content="VScode Remote今天抱着不想上班的心情迎来了高温假后的第一个工作日，吭哧吭哧本地装好了python2 发现没有我需要的包，我还只能在服务器上用那个只有linux和OS的软件。。。折腾了一波 vscode的remote-ssh，妈蛋服务器端下载又不行挂上了wget的代理12345$cat ~/.wgetrcuse_proxy=on#check-certificate=offhttp_pro">
@@ -263,7 +263,7 @@
                 
               
 
-              <time title="创建时间：2019-10-09 15:14:01" itemprop="dateCreated datePublished" datetime="2019-10-09T15:14:01+08:00">2019-10-09</time>
+              <time title="创建时间：2019-10-09 16:21:29" itemprop="dateCreated datePublished" datetime="2019-10-09T16:21:29+08:00">2019-10-09</time>
             </span>
           
 
@@ -276,7 +276,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>3.5k</span>
+              <span>3.6k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -312,7 +312,7 @@
 <h1 id="jupter-notebook-云服务器配置服务器"><a href="#jupter-notebook-云服务器配置服务器" class="headerlink" title="jupter notebook 云服务器配置服务器"></a>jupter notebook 云服务器配置服务器</h1><p>我决定再来折腾一波jupter notebook的云服务器配置，智障的我一开始配的是jupter python3，导致改成python2的jupyter再配置好启动就冒了一串这个玩意：</p>
 <p>`HTTP request sent; waiting for response.[I 14:21:23.131 NotebookApp] Accepting one-time-token-authenticated connection from ::1</p>
 <p>localhost cookie: _xsrf=2|6c33e61b|1db145affcf3b3a4ad8ed3d9c660e009|1564640483 Allow? (Y/N/Always/neVer)`狂按一波delete之后好了。。。emmm，就酱</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">$jupyter notebook --generate-config</span><br><span class="line"></span><br><span class="line">In [1]: from IPython.lib import passwd</span><br><span class="line"></span><br><span class="line">In [2]: passwd()</span><br><span class="line">Enter password: </span><br><span class="line">Verify password: </span><br><span class="line">Out[2]: &apos;sha1:9c54a45da8d5:7097820a8e516d2d2698061e2bc4f843d204936a&apos; </span><br><span class="line"></span><br><span class="line">$vim ~/.jupyter/jupyter_notebook_config.py </span><br><span class="line"></span><br><span class="line">c.NotebookApp.ip=&apos;*&apos; #所有绑定服务器的IP都能访问，若想只在特定ip访问，输入ip地址即可</span><br><span class="line">c.NotebookApp.notebook_dir = &apos;/NFS/cany/jupyter_projects&apos;</span><br><span class="line">c.NotebookApp.password = u&apos;sha1:9c54a45da8d5:7097820a8e516d2d2698061e2bc4f843d204936a&apos;</span><br><span class="line">c.NotebookApp.open_browser = False # 代表启动notebook服务时不打开浏览器并访问</span><br><span class="line">c.NotebookApp.port =8888 #随便指定一个端口</span><br><span class="line">c.IPKernelApp.pylab = &apos;inline&apos;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#在服务器端启动jupyter notebook</span><br><span class="line">jupyter notebook --no-browser</span><br><span class="line"></span><br><span class="line">#将远程服务器端口指定到本地</span><br><span class="line">ssh -T -L 8888:localhost:8888 TAD</span><br><span class="line"></span><br><span class="line">#在chrome中输入http://localhost:8888/tree</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">$jupyter notebook --generate-config</span><br><span class="line"></span><br><span class="line">In [1]: from IPython.lib import passwd</span><br><span class="line"></span><br><span class="line">In [2]: passwd()</span><br><span class="line">Enter password: </span><br><span class="line">Verify password: </span><br><span class="line">Out[2]: &apos;sha1:9c54a45da8d5:7097820a8e516d2d2698061e2bc4f843d204936a&apos; </span><br><span class="line"></span><br><span class="line">$vim ~/.jupyter/jupyter_notebook_config.py </span><br><span class="line"></span><br><span class="line">c.NotebookApp.ip=&apos;*&apos; #所有绑定服务器的IP都能访问，若想只在特定ip访问，输入ip地址即可</span><br><span class="line">c.NotebookApp.notebook_dir = &apos;/NFS/cany/jupyter_projects&apos;</span><br><span class="line">c.NotebookApp.password = u&apos;sha1:9c54a45da8d5:7097820a8e516d2d2698061e2bc4f843d204936a&apos;</span><br><span class="line">c.NotebookApp.open_browser = False # 代表启动notebook服务时不打开浏览器并访问</span><br><span class="line">c.NotebookApp.port =8888 #随便指定一个端口</span><br><span class="line">c.IPKernelApp.pylab = &apos;inline&apos;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#在服务器端启动jupyter notebook</span><br><span class="line">jupyter notebook --no-browser</span><br><span class="line"></span><br><span class="line">#将远程服务器8888端口指定到本地8889端口</span><br><span class="line">ssh -T -L 8889:localhost:8888 TAD</span><br><span class="line"></span><br><span class="line">#在chrome中输入http://localhost:8889/tree</span><br><span class="line">第一次登录的时候会要求输入密码吼吼</span><br></pre></td></tr></table></figure>
 
 <p><img src="/images/1570605051706.png" alt="1570605051706"></p>
 <h2 id="jupyter-notebook-拓展"><a href="#jupyter-notebook-拓展" class="headerlink" title="jupyter notebook 拓展"></a>jupyter notebook 拓展</h2><p><a href="https://zhuanlan.zhihu.com/p/36389916" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/36389916</a></p>
@@ -335,15 +335,15 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
+                <a href="/2019/10/09/搭建个人博客/" rel="next" title="github homepage + Hexo搭建个人博客">
+                  <i class="fa fa-chevron-left"></i> github homepage + Hexo搭建个人博客
+                </a>
+              
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-              
-                <a href="/2019/10/09/centos6上git clone/" rel="prev" title="centOS6上实现git clone">
-                  centOS6上实现git clone <i class="fa fa-chevron-right"></i>
-                </a>
               
             </div>
           </div>
