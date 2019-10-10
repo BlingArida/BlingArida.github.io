@@ -231,6 +231,102 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blingarida.github.io/2019/10/10/hexo项目github备份/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CanY's Blog">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TwinkleShowTime">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2019/10/10/hexo项目github备份/" class="post-title-link" itemprop="url">hexo项目github备份---管理git仓库的子仓库</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-10-10 11:40:32" itemprop="dateCreated datePublished" datetime="2019-10-10T11:40:32+08:00">2019-10-10</time>
+            </span>
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>404</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>1 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>打算备份设置的时候，next由于本身是一个git项目，上传上去作为了模块，然后变成了灰色。。。</p><p>嗯，原来问题是需要管理git仓库的子仓库</p><p><code>git add</code> 的时候显示是酱婶的</p><p><img src="/images/1570678689693.png" alt="1570678689693"></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br><span class="line">git remote add origin git@github.com:BlingArida/myBlog-git.git</span><br><span class="line">git add myBlog/</span><br><span class="line">git commit -m &quot;first commit&quot;</span><br><span class="line"></span><br><span class="line">#作为一个子模块上传，会变灰，删掉它，然后作为目录上传</span><br><span class="line">git rm --cached myBlog/themes/next</span><br><span class="line">git add myBlog/themes/next/</span><br><span class="line">git commit -m &quot;add commit&quot;</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/2019/10/10/hexo项目github备份/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </article>
+  
+  
+  
+
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blingarida.github.io/2019/10/10/搭建个人博客/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -862,7 +958,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
