@@ -231,6 +231,105 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blingarida.github.io/2019/10/10/Differential expression analysis/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CanY's Blog">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TwinkleShowTime">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2019/10/10/Differential expression analysis/" class="post-title-link" itemprop="url">Differential expression analysis(差异表达分析)</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-10-10 13:35:35" itemprop="dateCreated datePublished" datetime="2019-10-10T13:35:35+08:00">2019-10-10</time>
+            </span>
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>8.7k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>8 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="一、背景"><a href="#一、背景" class="headerlink" title="一、背景"></a>一、背景</h1><p>RNA-Seq实验设计中的“重复”包括：技术重复和生物学重复，重复是为了检测组间和组内的变异，对于假设检验至关重要。</p><ul>
+<li>技术重复为了估计测量技术（RNA-Seq）的变异。</li>
+<li>生物学重复是为了发现生物组内的变异。简单的说，两组的基因表达的变化只有比组内变异还大时才能认为时显著的。</li>
+</ul><p>RNA-Seq试验中，抽样得到的raw read counts服从泊松分布。并且同一样本在两次试验中的结果不同，这称为shot noise。这种变异在RNA-Seq<strong>技术重复</strong>间成为Possion noise。生物学上不同的样本间的差异服从负二项(negative binomial)分布,有时称gamma-Poisson分布。由于RNA-Seq count数据也表现出zero inflation(大量值为0)的特征，所以很难拟合到负二项分布，所以有文章认为要用Poisson-Tweedie family建模。</p>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/2019/10/10/Differential expression analysis/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </article>
+  
+  
+  
+
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blingarida.github.io/2019/10/10/hexo项目github备份/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -397,105 +496,6 @@
           
             <div class="post-button">
               <a class="btn" href="/2019/10/10/搭建个人博客/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </article>
-  
-  
-  
-
-    
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blingarida.github.io/2019/10/09/Differential expression analysis/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CanY's Blog">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="TwinkleShowTime">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2019/10/09/Differential expression analysis/" class="post-title-link" itemprop="url">Differential expression analysis(差异表达分析)</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2019-10-09 20:11:52" itemprop="dateCreated datePublished" datetime="2019-10-09T20:11:52+08:00">2019-10-09</time>
-            </span>
-          
-
-          
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">本文字数：</span>
-              
-              <span>8.7k</span>
-            </span>
-          
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              
-              <span>8 分钟</span>
-            </span>
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="一、背景"><a href="#一、背景" class="headerlink" title="一、背景"></a>一、背景</h1><p>RNA-Seq实验设计中的“重复”包括：技术重复和生物学重复，重复是为了检测组间和组内的变异，对于假设检验至关重要。</p><ul>
-<li>技术重复为了估计测量技术（RNA-Seq）的变异。</li>
-<li>生物学重复是为了发现生物组内的变异。简单的说，两组的基因表达的变化只有比组内变异还大时才能认为时显著的。</li>
-</ul><p>RNA-Seq试验中，抽样得到的raw read counts服从泊松分布。并且同一样本在两次试验中的结果不同，这称为shot noise。这种变异在RNA-Seq<strong>技术重复</strong>间成为Possion noise。生物学上不同的样本间的差异服从负二项(negative binomial)分布,有时称gamma-Poisson分布。由于RNA-Seq count数据也表现出zero inflation(大量值为0)的特征，所以很难拟合到负二项分布，所以有文章认为要用Poisson-Tweedie family建模。</p>
-          <!--noindex-->
-          
-            <div class="post-button">
-              <a class="btn" href="/2019/10/09/Differential expression analysis/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
