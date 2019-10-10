@@ -28,7 +28,7 @@
     scheme: 'Mist',
     version: '7.4.1',
     exturl: false,
-    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    sidebar: {"position":"right","display":"post","offset":12,"onmobile":false},
     copycode: {"enable":false,"show_result":false,"style":null},
     back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
     bookmark: {"enable":false,"color":"#222","save":"auto"},
@@ -305,7 +305,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">install.packages(c('repr', 'IRdisplay', 'evaluate', 'crayon', 'pbdZMQ', 'devtools', 'uuid', 'digest'))</span><br><span class="line">devtools::install_github('IRkernel/IRkernel')</span><br></pre></td></tr></table></figure>
 
 <p>上面的代码会自动分两步执行，执行完后，在输入如下代码中的一个：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 只在当前用户下安装</span><br><span class="line">IRkernel::installspec()</span><br><span class="line"><span class="meta">#</span> 或者是在系统下安装</span><br><span class="line">IRkernel::installspec(user = FALSE)</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 只在当前用户下安装</span></span><br><span class="line">IRkernel::installspec()</span><br><span class="line"><span class="meta">#</span><span class="bash"> 或者是在系统下安装</span></span><br><span class="line">IRkernel::installspec(user = FALSE)</span><br></pre></td></tr></table></figure>
 
 <p>等待执行完毕，打开jupyter就可以新建R的notebook了。</p>
 <h2 id="安装rpy2"><a href="#安装rpy2" class="headerlink" title="安装rpy2"></a>安装rpy2</h2><p>接着</p>
@@ -314,7 +314,7 @@
 <p>就可以了。</p>
 <p>开始快活</p>
 <p>新建python的notebook，会发现调用R及其简单。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>先新建个Dataframe对象</span><br><span class="line">a = pd.DataFrame([[1,2],[2,1]])</span><br><span class="line">传到R里:</span><br><span class="line"><span class="meta">%</span>%R -i a</span><br><span class="line">plot(a)</span><br><span class="line">从R里传值出来(1000个按正态分布的随机数）：</span><br><span class="line"><span class="meta">%</span>%R -o q</span><br><span class="line">q &lt;- rnorm(1000)</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">先新建个Dataframe对象</span></span><br><span class="line">a = pd.DataFrame([[1,2],[2,1]])</span><br><span class="line">传到R里:</span><br><span class="line"><span class="meta">%</span><span class="bash">%R -i a</span></span><br><span class="line">plot(a)</span><br><span class="line">从R里传值出来(1000个按正态分布的随机数）：</span><br><span class="line"><span class="meta">%</span><span class="bash">%R -o q</span></span><br><span class="line">q &lt;- rnorm(1000)</span><br></pre></td></tr></table></figure>
 
 <p>Here is the way I fixed my <strong>R</strong> package version <strong>3.0.2</strong> python version <strong>2.7</strong> platform ipython notebook.</p>
 <p>Change Path for R computer-&gt; property -&gt; advanced and system setting -&gt; environment variables</p>
@@ -331,6 +331,22 @@
     
     
         
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>CanY's Blog</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/2019/10/09/Jupyter Notebook实现直接调用R/" title="Jupyter Notebook实现直接调用R">http://yoursite.com/2019/10/09/Jupyter Notebook实现直接调用R/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+</div>
+
       
 
       <footer class="post-footer">
@@ -398,7 +414,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#关联jupyter-notebook"><span class="nav-number">1.</span> <span class="nav-text">关联jupyter notebook</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装rpy2"><span class="nav-number">2.</span> <span class="nav-text">安装rpy2</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#关联jupyter-notebook"><span class="nav-text">关联jupyter notebook</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装rpy2"><span class="nav-text">安装rpy2</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->
@@ -421,6 +437,35 @@
     
   </nav>
 </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/BlingArida" title="GitHub &rarr; https://github.com/BlingArida" rel="noopener" target="_blank"><i class="fa fa-fw fa-globe"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:canyin16@outlook.com" title="E-Mail &rarr; mailto:canyin16@outlook.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-globe"></i>E-Mail</a>
+      </span>
+    
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    
+  
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
 
 
   <div class="links-of-blogroll motion-element">
@@ -463,7 +508,7 @@
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">21k</span>
+    <span title="站点总字数">22k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>

@@ -28,7 +28,7 @@
     scheme: 'Mist',
     version: '7.4.1',
     exturl: false,
-    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    sidebar: {"position":"right","display":"post","offset":12,"onmobile":false},
     copycode: {"enable":false,"show_result":false,"style":null},
     back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
     bookmark: {"enable":false,"color":"#222","save":"auto"},
@@ -608,6 +608,22 @@
     
         
       
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>CanY's Blog</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/2019/10/09/Differential expression analysis/" title="Differential expression analysis(差异表达分析)">http://yoursite.com/2019/10/09/Differential expression analysis/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+</div>
+
+      
 
       <footer class="post-footer">
 
@@ -616,8 +632,8 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2019/10/09/搭建个人博客/" rel="next" title="github homepage + Hexo搭建个人博客">
-                  <i class="fa fa-chevron-left"></i> github homepage + Hexo搭建个人博客
+                <a href="/2019/10/09/python 云服务器配置/" rel="next" title="python云服务器配置">
+                  <i class="fa fa-chevron-left"></i> python云服务器配置
                 </a>
               
             </div>
@@ -625,6 +641,10 @@
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/10/10/搭建个人博客/" rel="prev" title="github homepage + Hexo搭建个人博客">
+                  github homepage + Hexo搭建个人博客 <i class="fa fa-chevron-right"></i>
+                </a>
               
             </div>
           </div>
@@ -670,7 +690,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、背景"><span class="nav-number">1.</span> <span class="nav-text">一、背景</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分析方法"><span class="nav-number">1.1.</span> <span class="nav-text">分析方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#理论基础：线性模型，-设计矩阵和比较矩阵"><span class="nav-number">1.1.1.</span> <span class="nav-text">理论基础：线性模型， 设计矩阵和比较矩阵</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、RNA-seq的标准化"><span class="nav-number">2.</span> <span class="nav-text">二、RNA-seq的标准化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基因表达标准化Normalisation"><span class="nav-number">2.1.</span> <span class="nav-text">基因表达标准化Normalisation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#比较容易想到的标准化方法"><span class="nav-number">2.1.1.</span> <span class="nav-text">比较容易想到的标准化方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CPM-counts-per-million"><span class="nav-number">2.1.2.</span> <span class="nav-text">CPM (counts per million)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其它的标准化方法"><span class="nav-number">2.1.3.</span> <span class="nav-text">其它的标准化方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Median-of-Ratio-DESeq2"><span class="nav-number">2.1.3.1.</span> <span class="nav-text">Median of Ratio (DESeq2)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TMM-Trimmed-Mean-of-M-value-edgeR"><span class="nav-number">2.1.3.2.</span> <span class="nav-text">TMM (Trimmed Mean of M value, edgeR)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">2.1.4.</span> <span class="nav-text">小结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、DESeq2-分析差异表达"><span class="nav-number">3.</span> <span class="nav-text">三、DESeq2 分析差异表达</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-DESeq2差异分析基本流程"><span class="nav-number">3.1.</span> <span class="nav-text">1. DESeq2差异分析基本流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-构建dds矩阵"><span class="nav-number">3.2.</span> <span class="nav-text">2. 构建dds矩阵</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#r代码"><span class="nav-number">3.2.1.</span> <span class="nav-text">r代码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Footnotes"><span class="nav-number">4.</span> <span class="nav-text">Footnotes</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、背景"><span class="nav-text">一、背景</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分析方法"><span class="nav-text">分析方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#理论基础：线性模型，-设计矩阵和比较矩阵"><span class="nav-text">理论基础：线性模型， 设计矩阵和比较矩阵</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、RNA-seq的标准化"><span class="nav-text">二、RNA-seq的标准化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基因表达标准化Normalisation"><span class="nav-text">基因表达标准化Normalisation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#比较容易想到的标准化方法"><span class="nav-text">比较容易想到的标准化方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CPM-counts-per-million"><span class="nav-text">CPM (counts per million)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其它的标准化方法"><span class="nav-text">其它的标准化方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Median-of-Ratio-DESeq2"><span class="nav-text">Median of Ratio (DESeq2)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TMM-Trimmed-Mean-of-M-value-edgeR"><span class="nav-text">TMM (Trimmed Mean of M value, edgeR)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-text">小结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、DESeq2-分析差异表达"><span class="nav-text">三、DESeq2 分析差异表达</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-DESeq2差异分析基本流程"><span class="nav-text">1. DESeq2差异分析基本流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-构建dds矩阵"><span class="nav-text">2. 构建dds矩阵</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#r代码"><span class="nav-text">r代码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Footnotes"><span class="nav-text">Footnotes</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->
@@ -693,6 +713,35 @@
     
   </nav>
 </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/BlingArida" title="GitHub &rarr; https://github.com/BlingArida" rel="noopener" target="_blank"><i class="fa fa-fw fa-globe"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:canyin16@outlook.com" title="E-Mail &rarr; mailto:canyin16@outlook.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-globe"></i>E-Mail</a>
+      </span>
+    
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    
+  
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
 
 
   <div class="links-of-blogroll motion-element">
@@ -735,7 +784,7 @@
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">21k</span>
+    <span title="站点总字数">22k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
